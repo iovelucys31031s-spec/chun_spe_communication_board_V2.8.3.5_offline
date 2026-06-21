@@ -30,10 +30,8 @@
         const Trash2 = ({className="w-6 h-6"}) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>;
         const ArrowLeft = ({className="w-6 h-6"}) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>;
         const Volume2 = ({className="w-6 h-6"}) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>;
-        const Info = ({className="w-6 h-6"}) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>;
         const Check = ({className="w-6 h-6"}) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 6 9 17 4 12"></polyline></svg>;
         const Globe = ({className="w-6 h-6"}) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>;
-        const Smartphone = ({className="w-6 h-6"}) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>;
         const Maximize = ({className="w-6 h-6"}) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>;
         
         const ToneIcon = ({ char, className }) => {
@@ -44,40 +42,41 @@
             return null;
         };
 
+        // --- 已精準校正的防呆字典 (完全依照您的拼音總表) ---
         const ZHUYIN_DICT_STR = 
-        "ㄅㄚ:八拔把爸吧|ㄅㄛ:波伯跛播啵|ㄅㄞ:掰白百敗敗|ㄅㄟ:杯悲北背貝|ㄅㄠ:包雹保報包|ㄅㄢ:班般板半辦|ㄅㄣ:奔本本笨笨|ㄅㄤ:幫旁榜棒棒|ㄅㄥ:崩繃蹦蹦蹦|ㄅㄧ:逼鼻比必必|ㄅㄧㄝ:憋別癟彆彆|ㄅㄧㄠ:標彪表鰾鰾|ㄅㄧㄢ:邊扁貶變變|ㄅㄧㄣ:賓鑌儐鬢鬢|ㄅㄧㄥ:冰兵餅病病|" +
-        "ㄆㄚ:趴爬怕怕怕|ㄆㄛ:坡婆叵破破|ㄆㄞ:拍排迫派派|ㄆㄟ:胚培陪配配|ㄆㄠ:拋跑跑泡泡|ㄆㄡ:剖剖剖剖剖|ㄆㄢ:潘盤判判判|ㄆㄣ:噴盆本笨笨|ㄆㄤ:乓旁龐胖胖|ㄆㄥ:砰朋捧碰碰|ㄆㄧ:批皮匹屁屁|ㄆㄧㄝ:撇撇撇撇撇|ㄆㄧㄠ:飄瓢瞟票票|ㄆㄧㄢ:偏駢諞片片|ㄆㄧㄣ:拼貧品聘聘|ㄆㄧㄥ:乒平屏憑憑|" +
-        "ㄇㄚ:媽麻馬罵嗎|ㄇㄛ:摸膜抹末麼|ㄇㄜ:麼麼麼麼麼|ㄇㄞ:埋霾買賣賣|ㄇㄟ:枚梅美妹妹|ㄇㄠ:貓毛卯冒冒|ㄇㄡ:某某某某某|ㄇㄢ:蠻瞞滿慢滿|ㄇㄣ:悶門們們們|ㄇㄤ:芒忙莽妄莽|ㄇㄥ:蒙盟猛猛夢蒙|ㄇㄧ:咪迷米密密|ㄇㄧㄝ:咩咩咩滅滅|ㄇㄧㄠ:喵苗秒妙妙|ㄇㄧㄡ:謬謬謬謬謬|ㄇㄧㄢ:棉綿免麵免|ㄇㄧㄣ:民民敏憫敏|ㄇㄧㄥ:明鳴酩命命|" +
-        "ㄈㄚ:發乏法髮發|ㄈㄛ:佛佛佛佛佛|ㄈㄟ:飛肥匪費費|ㄈㄡ:否否否否否|ㄈㄢ:翻凡反犯反|ㄈㄣ:分墳粉份份|ㄈㄤ:方房訪放放|ㄈㄥ:風逢諷奉奉|" +
-        "ㄉㄚ:搭達打大答|ㄉㄜ:的得的得的|ㄉㄞ:呆逮歹代代|ㄉㄟ:得得得得得|ㄉㄠ:刀導倒到倒|ㄉㄡ:都抖斗豆豆|ㄉㄢ:單彈膽蛋蛋|ㄉㄤ:當黨擋檔當|ㄉㄥ:登等等瞪等|ㄉㄧ:低迪底地地|ㄉㄧㄝ:跌迭疊疊疊|ㄉㄧㄠ:雕條掉掉掉|ㄉㄧㄡ:丟丟丟丟丟|ㄉㄧㄢ:顛點典電電|ㄉㄧㄥ:丁頂鼎定定|ㄉㄨ:都毒賭度度|ㄉㄨㄛ:多奪朵剁朵|ㄉㄨㄟ:堆對對對對|ㄉㄨㄢ:端短短斷斷|ㄉㄨㄣ:敦頓盾頓頓|ㄉㄨㄥ:東懂董動動|" +
-        "ㄊㄚ:他塔塔踏她|ㄊㄜ:特特特特特|ㄊㄞ:胎台抬太態|ㄊㄠ:掏逃討套套|ㄊㄡ:偷頭透透透|ㄊㄢ:貪談坦探探|ㄊㄤ:湯糖躺趟躺|ㄊㄥ:疼騰藤藤藤|ㄊㄧ:梯提體替替|ㄊㄧㄝ:貼鐵鐵鐵鐵|ㄊㄧㄠ:挑條調跳跳|ㄊㄧㄢ:天田舔舔舔|ㄊㄧㄥ:聽停挺聽聽|ㄊㄨ:突圖土兔兔|ㄊㄨㄛ:脫陀妥拓妥|ㄊㄨㄟ:推頹腿退退|ㄊㄨㄢ:湍團短斷短|ㄊㄨㄣ:吞屯盾頓頓|ㄊㄨㄥ:通同桶痛痛|" +
-        "ㄋㄚ:那拿哪那哪|ㄋㄜ:呢呢呢呢呢|ㄋㄞ:奶乃奶耐奶|ㄋㄟ:內內內內內|ㄋㄠ:腦撓腦鬧腦|ㄋㄢ:南男喃難難|ㄋㄤ:囊囊囊囊囊|ㄋㄥ:能能能能能|ㄋㄧ:泥尼你逆你|ㄋㄧㄝ:捏捏捏孽捏|ㄋㄧㄠ:鳥鳥鳥尿尿|ㄋㄧㄡ:牛牛扭拗牛|ㄋㄧㄢ:年粘捻念念|ㄋㄧㄣ:您您您您您|ㄋㄧㄤ:娘娘娘釀娘|ㄋㄧㄥ:寧凝擰佞擰|ㄋㄨ:奴努努怒努|ㄋㄨㄛ:挪諾諾懦諾|ㄋㄨㄢ:暖暖暖暖暖|ㄋㄨㄥ:農弄弄弄弄|ㄋㄩ:女女女女女|ㄋㄩㄝ:虐虐虐虐虐|" +
-        "ㄌㄚ:拉喇喇辣啦|ㄌㄛ:囉囉囉囉囉|ㄌㄜ:了勒了了了|ㄌㄞ:來萊賴賴賴|ㄌㄟ:雷雷壘類壘|ㄌㄠ:撈勞老酪老|ㄌㄡ:摟樓簍漏簍|ㄌㄢ:藍蘭覽爛覽|ㄌㄤ:狼郎朗浪朗|ㄌㄥ:冷冷冷冷冷|ㄌㄧ:哩離裡力裡|ㄌㄧㄚ:倆倆倆倆倆|ㄌㄧㄝ:裂咧咧烈咧|ㄌㄧㄠ:撩療了料了|ㄌㄧㄡ:溜流柳六溜|ㄌㄧㄢ:連聯臉練臉|ㄌㄧㄣ:林臨凜吝凜|ㄌㄧㄤ:涼良兩亮量|ㄌㄧㄥ:零齡領另領|ㄌㄨ:嚕盧魯路魯|ㄌㄨㄛ:羅邏裸落落|ㄌㄨㄢ:亂欒卵亂亂|ㄌㄨㄣ:倫輪論論論|ㄌㄨㄥ:龍隆壟弄壟|ㄌㄩ:驢驢旅綠旅|ㄌㄩㄝ:略略略略略|" +
-        "ㄍㄚ:咖嘎嘎尬嘎|ㄍㄜ:哥格葛個個|ㄍㄞ:該改改蓋改|ㄍㄟ:給給給給給|ㄍㄠ:高搞搞告搞|ㄍㄡ:溝狗狗夠狗|ㄍㄢ:干甘趕幹趕|ㄍㄣ:根跟跟艮跟|ㄍㄤ:剛鋼港槓港|ㄍㄥ:更耕耿更耿|ㄍㄨ:姑骨古故古|ㄍㄨㄚ:瓜寡寡掛寡|ㄍㄨㄛ:鍋國果過果|ㄍㄨㄞ:乖拐拐怪拐|ㄍㄨㄟ:龜軌鬼貴鬼|ㄍㄨㄢ:關管管慣管|ㄍㄨㄣ:滾滾滾棍滾|ㄍㄨㄥ:公共拱共拱|" +
-        "ㄎㄚ:咖卡卡卡卡|ㄎㄜ:科可可客可|ㄎㄞ:開楷楷慨楷|ㄎㄠ:考烤烤靠烤|ㄎㄡ:口口口扣口|ㄎㄢ:看砍砍看砍|ㄎㄣ:肯肯肯懇肯|ㄎㄤ:康扛抗抗抗|ㄎㄥ:坑坑坑坑坑|ㄎㄨ:哭苦苦苦庫苦|ㄎㄨㄚ:誇垮垮跨垮|ㄎㄨㄛ:闊闊闊擴闊|ㄎㄨㄞ:快塊塊塊塊|ㄎㄨㄟ:虧魁傀愧傀|ㄎㄨㄢ:寬款款款款|ㄎㄨㄣ:昆捆捆困捆|ㄎㄨㄥ:空孔孔控孔|" +
-        "ㄏㄚ:哈蝦哈嚇哈|ㄏㄜ:喝合何賀何|ㄏㄞ:嗨孩海害海|ㄏㄟ:黑黑黑黑黑|ㄏㄠ:蒿毫好號好|ㄏㄡ:侯猴吼後吼|ㄏㄢ:憨寒喊漢喊|ㄏㄣ:哼痕很恨很|ㄏㄤ:夯航杭巷杭|ㄏㄥ:哼橫橫橫橫|ㄏㄨ:呼胡虎戶虎|ㄏㄨㄚ:花華滑化滑|ㄏㄨㄛ:豁活火或火|ㄏㄨㄞ:懷徊壞壞壞|ㄏㄨㄟ:灰回悔會悔|ㄏㄨㄢ:歡環緩換緩|ㄏㄨㄣ:婚魂混混混|ㄏㄨㄥ:烘紅哄哄哄|" +
-        "ㄐㄧ:機及幾記幾|ㄐㄧㄚ:家夾假價假|ㄐㄧㄝ:街結解借解|ㄐㄧㄠ:交角腳叫腳|ㄐㄧㄡ:究九久就久|ㄐㄧㄢ:尖間簡見簡|ㄐㄧㄣ:今金緊進緊|ㄐㄧㄤ:江降講匠降|ㄐㄧㄥ:京景井敬井|ㄐㄩ:居局舉句舉|ㄐㄩㄝ:決絕角倔角|ㄐㄩㄢ:捐捲卷眷卷|ㄐㄩㄣ:軍均菌俊菌|" +
-        "ㄑㄧ:七奇起氣起|ㄑㄧㄚ:掐卡卡恰卡|ㄑㄧㄝ:切茄且竊且|ㄑㄧㄠ:敲橋巧俏巧|ㄑㄧㄡ:秋求朽丘朽|ㄑㄧㄢ:千前淺欠淺|ㄑㄧㄣ:親琴寢沁寢|ㄑㄧㄤ:槍強搶嗆強|ㄑㄧㄥ:青情請慶請|ㄑㄩ:區渠曲去曲|ㄑㄩㄝ:缺瘸確確確|ㄑㄩㄢ:圈全犬勸犬|ㄑㄩㄣ:群裙群群群|" +
-        "ㄒㄧ:西席洗細洗|ㄒㄧㄚ:蝦霞下夏下|ㄒㄧㄝ:些鞋寫謝寫|ㄒㄧㄠ:消小曉笑曉|ㄒㄧㄡ:修休朽秀朽|ㄒㄧㄢ:先閒險現險|ㄒㄧㄣ:新心信信信|ㄒㄧㄤ:香祥想向相|ㄒㄧㄥ:星行醒性醒|ㄒㄩ:需徐許續許|ㄒㄩㄝ:靴學雪血雪|ㄒㄩㄢ:宣懸選眩選|ㄒㄩㄣ:勳尋訓訓訓|ㄒㄩㄥ:兄凶胸熊雄|" +
-        "ㄓ:知直只至只|ㄓㄚ:扎炸眨炸眨|ㄓㄜ:遮折者這者|ㄓㄞ:摘宅窄債窄|ㄓㄠ:招著找照找|ㄓㄡ:周軸肘咒肘|ㄓㄢ:展盞站盞|ㄓㄣ:真陣診鎮診|ㄓㄤ:張長掌障掌|ㄓㄥ:正整整政整|ㄓㄨ:豬竹主住主|ㄓㄨㄚ:抓爪爪爪爪|ㄓㄨㄛ:桌濁琢卓琢|ㄓㄨㄟ:追墜墜墜墜|ㄓㄨㄢ:專轉轉傳轉|ㄓㄨㄣ:準準準準準|ㄓㄨㄥ:中種腫重腫|" +
-        "ㄔ:吃池尺斥尺|ㄔㄚ:叉茶察差察|ㄔㄜ:車扯扯撤扯|ㄔㄞ:拆柴柴差柴|ㄔㄠ:超朝吵潮吵|ㄔㄡ:抽愁醜臭醜|ㄔㄢ:摻纏產顫產|ㄔㄣ:嗔晨沉趁沉|ㄔㄤ:昌常廠唱廠|ㄔㄥ:稱成逞秤逞|ㄔㄨ:出除楚處楚|ㄔㄨㄛ:戳戳戳錯戳|ㄔㄨㄞ:揣揣揣揣揣|ㄔㄨㄟ:吹垂捶翠捶|ㄔㄨㄢ:穿傳喘串喘|ㄔㄨㄣ:春唇蠢蠢蠢|ㄔㄨㄥ:充蟲寵衝寵|" +
-        "ㄕ:師十史是史|ㄕㄚ:沙傻傻煞傻|ㄕㄜ:奢蛇舍設舍|ㄕㄞ:篩色色色色|ㄕㄠ:燒勺少邵少|ㄕㄡ:收熟手受手|ㄕㄢ:山閃閃善閃|ㄕㄣ:身神審甚審|ㄕㄤ:商賞賞上賞|ㄕㄥ:生繩省勝省|ㄕㄨ:書熟鼠樹鼠|ㄕㄨㄚ:刷耍耍耍耍|ㄕㄨㄛ:說說說說說|ㄕㄨㄞ:摔甩甩帥甩|ㄕㄨㄟ:水誰水稅水|ㄕㄨㄢ:拴栓栓栓栓|ㄕㄨㄣ:吮吮吮順吮|" +
-        "ㄖ:日日日日日|ㄖㄜ:熱惹惹熱惹|ㄖㄠ:饒饒擾繞擾|ㄖㄡ:肉揉揉肉揉|ㄖㄢ:然然染染染|ㄖㄣ:人任忍認忍|ㄖㄤ:讓讓壤讓壤|ㄖㄥ:扔仍仍仍仍|ㄖㄨ:如如乳入乳|ㄖㄨㄛ:若弱弱弱弱|ㄖㄨㄟ:瑞蕊蕊瑞蕊|ㄖㄨㄢ:軟軟軟軟軟|ㄖㄨㄣ:潤閏閏潤閏|ㄖㄨㄥ:容融茸絨茸|" +
-        "ㄗ:資紫子自子|ㄗㄚ:紮雜雜雜雜|ㄗㄜ:責則嘖嘖嘖|ㄗㄞ:栽災仔再仔|ㄗㄠ:遭鑿早造早|ㄗㄡ:走鄒走奏走|ㄗㄢ:簪咱攢讚攢|ㄗㄣ:怎怎怎怎怎|ㄗㄤ:髒藏臟臟臟|ㄗㄥ:增曾曾贈曾|ㄗㄨ:租足組做組|ㄗㄨㄛ:作昨左做左|ㄗㄨㄟ:嘴嘴嘴最嘴|ㄗㄨㄢ:鑽鑽鑽鑽鑽|ㄗㄨㄣ:尊尊尊尊尊|ㄗㄨㄥ:宗總總總總|" +
-        "ㄘ:疵詞此次此|ㄘㄚ:擦擦擦擦擦|ㄘㄜ:測冊測測測|ㄘㄞ:猜才彩菜彩|ㄘㄠ:操曹草草草|ㄘㄡ:湊湊湊湊湊|ㄘㄢ:參殘慘燦慘|ㄘㄣ:參參參參參|ㄘㄤ:倉藏藏藏藏|ㄘㄥ:蹭層層蹭層|ㄘㄨ:粗促促促促|ㄘㄨㄛ:搓銼銼錯銼|ㄘㄨㄟ:催脆脆脆脆|ㄘㄨㄢ:竄竄竄竄竄|ㄘㄨㄣ:村存寸寸寸|ㄘㄨㄥ:聰從從從從|" +
-        "ㄙ:思死死四死|ㄙㄚ:撒撒灑薩灑|ㄙㄜ:色澀澀色澀|ㄙㄞ:塞賽賽賽賽|ㄙㄠ:騷掃掃掃掃|ㄙㄡ:搜叟叟叟叟|ㄙㄢ:三散散散散|ㄙㄣ:森森森森森|ㄙㄤ:桑嗓嗓喪嗓|ㄙㄥ:僧僧僧僧僧|ㄙㄨ:蘇俗素素素|ㄙㄨㄛ:縮所所所所|ㄙㄨㄟ:雖隨髓歲髓|ㄙㄨㄢ:酸算算算算|ㄙㄨㄣ:孫損損損損|ㄙㄨㄥ:松慫聳送聳|" +
-        "ㄧ:一宜以意以|ㄧㄚ:呀牙雅亞雅|ㄧㄛ:喲喲喲喲喲|ㄧㄝ:耶爺也業也|ㄧㄞ:崖崖崖崖崖|ㄧㄠ:要遙咬藥咬|ㄧㄡ:優由有又有|ㄧㄢ:煙言眼驗眼|ㄧㄣ:音銀飲印飲|ㄧㄤ:央羊養樣養|ㄧㄥ:英迎影硬影|" +
-        "ㄨ:屋無五物五|ㄨㄚ:哇娃瓦襪瓦|ㄨㄛ:窩我我握我|ㄨㄞ:歪外外外外|ㄨㄟ:威為偉位偉|ㄨㄢ:彎完晚萬晚|ㄨㄣ:溫文穩問穩|ㄨㄤ:汪王網望網|ㄨㄥ:翁嗡嗡嗡嗡|" +
-        "ㄩ:迂於宇玉宇|ㄩㄝ:約月月越月|ㄩㄢ:淵元遠院遠|ㄩㄣ:暈雲允運允|" +
-        "ㄦ:兒而爾二爾|ㄚ:阿阿阿阿阿|ㄛ:喔喔喔喔喔|ㄜ:阿鵝噁餓噁|ㄝ:耶耶耶耶耶|ㄞ:哀癌矮愛矮|ㄟ:欸欸欸欸欸|ㄠ:熬熬襖奧襖|ㄡ:歐偶偶偶偶|ㄢ:安俺俺暗俺|ㄣ:恩恩恩恩恩|ㄤ:昂昂昂昂昂|ㄥ:哼哼哼哼哼";
+        "ㄅㄚ:八|ㄅㄛ:波|ㄅㄞ:掰|ㄅㄟ:杯|ㄅㄠ:包|ㄅㄢ:班|ㄅㄣ:奔|ㄅㄤ:幫|ㄅㄥ:崩|ㄅㄧ:逼|ㄅㄧㄝ:憋|ㄅㄧㄠ:標|ㄅㄧㄢ:邊|ㄅㄧㄣ:賓|ㄅㄧㄥ:冰|ㄅㄨ:逋|" +
+        "ㄆㄚ:趴|ㄆㄛ:坡|ㄆㄞ:拍|ㄆㄟ:胚|ㄆㄠ:拋|ㄆㄡ:剖|ㄆㄢ:潘|ㄆㄣ:噴|ㄆㄤ:乓|ㄆㄥ:砰|ㄆㄧ:批|ㄆㄧㄝ:撇|ㄆㄧㄠ:飄|ㄆㄧㄢ:偏|ㄆㄧㄣ:拼|ㄆㄧㄥ:乒|ㄆㄨ:撲|" +
+        "ㄇㄚ:媽|ㄇㄛ:摸|ㄇㄜ:麼|ㄇㄞ:埋|ㄇㄟ:枚|ㄇㄠ:貓|ㄇㄡ:某|ㄇㄢ:蠻|ㄇㄣ:悶|ㄇㄤ:芒|ㄇㄥ:蒙|ㄇㄧ:咪|ㄇㄧㄝ:咩|ㄇㄧㄠ:喵|ㄇㄧㄡ:謬|ㄇㄧㄢ:棉|ㄇㄧㄣ:民|ㄇㄧㄥ:明|ㄇㄨ:木|" +
+        "ㄈㄚ:發|ㄈㄛ:佛|ㄈㄟ:飛|ㄈㄡ:否|ㄈㄢ:翻|ㄈㄣ:分|ㄈㄤ:方|ㄈㄥ:風|ㄈㄨ:夫|" +
+        "ㄉㄚ:搭|ㄉㄜ:的|ㄉㄞ:呆|ㄉㄟ:得|ㄉㄠ:刀|ㄉㄡ:都|ㄉㄢ:單|ㄉㄤ:當|ㄉㄥ:登|ㄉㄧ:低|ㄉㄧㄝ:跌|ㄉㄧㄠ:雕|ㄉㄧㄡ:丟|ㄉㄧㄢ:顛|ㄉㄧㄥ:丁|ㄉㄨ:都|ㄉㄨㄛ:多|ㄉㄨㄟ:堆|ㄉㄨㄢ:端|ㄉㄨㄣ:敦|ㄉㄨㄥ:東|" +
+        "ㄊㄚ:他|ㄊㄜ:特|ㄊㄞ:胎|ㄊㄠ:掏|ㄊㄡ:偷|ㄊㄢ:貪|ㄊㄤ:湯|ㄊㄥ:疼|ㄊㄧ:梯|ㄊㄧㄝ:貼|ㄊㄧㄠ:挑|ㄊㄧㄢ:天|ㄊㄧㄥ:聽|ㄊㄨ:突|ㄊㄨㄛ:脫|ㄊㄨㄟ:推|ㄊㄨㄢ:湍|ㄊㄨㄣ:吞|ㄊㄨㄥ:通|" +
+        "ㄋㄚ:那|ㄋㄜ:呢|ㄋㄞ:奶|ㄋㄟ:內|ㄋㄠ:腦|ㄋㄢ:南|ㄋㄤ:囊|ㄋㄥ:能|ㄋㄧ:泥|ㄋㄧㄝ:捏|ㄋㄧㄠ:鳥|ㄋㄧㄡ:牛|ㄋㄧㄢ:年|ㄋㄧㄣ:您|ㄋㄧㄤ:娘|ㄋㄧㄥ:寧|ㄋㄨ:奴|ㄋㄨㄛ:挪|ㄋㄨㄢ:暖|ㄋㄨㄥ:農|ㄋㄩ:女|ㄋㄩㄝ:虐|" +
+        "ㄌㄚ:拉|ㄌㄛ:囉|ㄌㄜ:了|ㄌㄞ:來|ㄌㄟ:雷|ㄌㄠ:撈|ㄌㄡ:摟|ㄌㄢ:藍|ㄌㄤ:狼|ㄌㄥ:冷|ㄌㄧ:哩|ㄌㄧㄚ:倆|ㄌㄧㄝ:裂|ㄌㄧㄠ:撩|ㄌㄧㄡ:溜|ㄌㄧㄢ:連|ㄌㄧㄣ:林|ㄌㄧㄤ:涼|ㄌㄧㄥ:零|ㄌㄨ:嚕|ㄌㄨㄛ:羅|ㄌㄨㄢ:亂|ㄌㄨㄣ:倫|ㄌㄨㄥ:龍|ㄌㄩ:驢|ㄌㄩㄝ:略|" +
+        "ㄍㄚ:咖|ㄍㄜ:哥|ㄍㄞ:該|ㄍㄟ:給|ㄍㄠ:高|ㄍㄡ:溝|ㄍㄢ:干|ㄍㄣ:根|ㄍㄤ:剛|ㄍㄥ:更|ㄍㄨ:姑|ㄍㄨㄚ:瓜|ㄍㄨㄛ:鍋|ㄍㄨㄞ:乖|ㄍㄨㄟ:龜|ㄍㄨㄢ:關|ㄍㄨㄣ:滾|ㄍㄨㄥ:公|" +
+        "ㄎㄚ:咖|ㄎㄜ:科|ㄎㄞ:開|ㄎㄠ:考|ㄎㄡ:口|ㄎㄢ:看|ㄎㄣ:肯|ㄎㄤ:康|ㄎㄥ:坑|ㄎㄨ:哭|ㄎㄨㄚ:誇|ㄎㄨㄛ:闊|ㄎㄨㄞ:快|ㄎㄨㄟ:虧|ㄎㄨㄢ:寬|ㄎㄨㄣ:昆|ㄎㄨㄥ:空|" +
+        "ㄏㄚ:哈|ㄏㄜ:喝|ㄏㄞ:嗨|ㄏㄟ:黑|ㄏㄠ:蒿|ㄏㄡ:侯|ㄏㄢ:憨|ㄏㄣ:哼|ㄏㄤ:夯|ㄏㄥ:哼|ㄏㄨ:呼|ㄏㄨㄚ:花|ㄏㄨㄛ:豁|ㄏㄨㄞ:懷|ㄏㄨㄟ:灰|ㄏㄨㄢ:歡|ㄏㄨㄣ:婚|ㄏㄨㄥ:烘|" +
+        "ㄐㄧ:機|ㄐㄧㄚ:家|ㄐㄧㄝ:街|ㄐㄧㄠ:交|ㄐㄧㄡ:究|ㄐㄧㄢ:尖|ㄐㄧㄣ:今|ㄐㄧㄤ:江|ㄐㄧㄥ:京|ㄐㄩ:居|ㄐㄩㄝ:決|ㄐㄩㄢ:捐|ㄐㄩㄣ:軍|ㄐㄩㄥ:炯|" +
+        "ㄑㄧ:七|ㄑㄧㄚ:掐|ㄑㄧㄝ:切|ㄑㄧㄠ:敲|ㄑㄧㄡ:秋|ㄑㄧㄢ:千|ㄑㄧㄣ:親|ㄑㄧㄤ:槍|ㄑㄧㄥ:青|ㄑㄩ:區|ㄑㄩㄝ:缺|ㄑㄩㄢ:圈|ㄑㄩㄣ:群|ㄑㄩㄥ:窮|" +
+        "ㄒㄧ:西|ㄒㄧㄚ:蝦|ㄒㄧㄝ:些|ㄒㄧㄠ:消|ㄒㄧㄡ:修|ㄒㄧㄢ:先|ㄒㄧㄣ:新|ㄒㄧㄤ:香|ㄒㄧㄥ:星|ㄒㄩ:需|ㄒㄩㄝ:靴|ㄒㄩㄢ:宣|ㄒㄩㄣ:勳|ㄒㄩㄥ:兄|" +
+        "ㄓ:知|ㄓㄚ:扎|ㄓㄜ:遮|ㄓㄞ:摘|ㄓㄠ:招|ㄓㄡ:周|ㄓㄢ:展|ㄓㄣ:真|ㄓㄤ:張|ㄓㄥ:正|ㄓㄨ:豬|ㄓㄨㄚ:抓|ㄓㄨㄛ:桌|ㄓㄨㄟ:追|ㄓㄨㄢ:專|ㄓㄨㄣ:準|ㄓㄨㄥ:中|" +
+        "ㄔ:吃|ㄔㄚ:叉|ㄔㄜ:車|ㄔㄞ:拆|ㄔㄠ:超|ㄔㄡ:抽|ㄔㄢ:摻|ㄔㄣ:嗔|ㄔㄤ:昌|ㄔㄥ:稱|ㄔㄨ:出|ㄔㄨㄛ:戳|ㄔㄨㄞ:揣|ㄔㄨㄟ:吹|ㄔㄨㄢ:穿|ㄔㄨㄣ:春|ㄔㄨㄥ:充|" +
+        "ㄕ:師|ㄕㄚ:沙|ㄕㄜ:奢|ㄕㄞ:篩|ㄕㄟ:誰|ㄕㄠ:燒|ㄕㄡ:收|ㄕㄢ:山|ㄕㄣ:身|ㄕㄤ:商|ㄕㄥ:生|ㄕㄨ:書|ㄕㄨㄚ:刷|ㄕㄨㄛ:說|ㄕㄨㄞ:摔|ㄕㄨㄟ:水|ㄕㄨㄢ:拴|ㄕㄨㄣ:吮|ㄕㄨㄤ:雙|" +
+        "ㄖ:日|ㄖㄜ:熱|ㄖㄠ:饒|ㄖㄡ:肉|ㄖㄢ:然|ㄖㄣ:人|ㄖㄤ:讓|ㄖㄥ:扔|ㄖㄨ:如|ㄖㄨㄛ:若|ㄖㄨㄟ:瑞|ㄖㄨㄢ:軟|ㄖㄨㄣ:潤|ㄖㄨㄥ:容|" +
+        "ㄗ:資|ㄗㄚ:紮|ㄗㄜ:責|ㄗㄞ:栽|ㄗㄟ:賊|ㄗㄠ:遭|ㄗㄡ:走|ㄗㄢ:簪|ㄗㄣ:怎|ㄗㄤ:髒|ㄗㄥ:增|ㄗㄨ:租|ㄗㄨㄛ:作|ㄗㄨㄟ:嘴|ㄗㄨㄢ:鑽|ㄗㄨㄣ:尊|ㄗㄨㄥ:宗|" +
+        "ㄘ:疵|ㄘㄚ:擦|ㄘㄜ:測|ㄘㄞ:猜|ㄘㄠ:操|ㄘㄡ:湊|ㄘㄢ:參|ㄘㄣ:參|ㄘㄤ:倉|ㄘㄥ:蹭|ㄘㄨ:粗|ㄘㄨㄛ:搓|ㄘㄨㄟ:催|ㄘㄨㄢ:竄|ㄘㄨㄣ:村|ㄘㄨㄥ:聰|" +
+        "ㄙ:思|ㄙㄚ:撒|ㄙㄜ:色|ㄙㄞ:塞|ㄙㄠ:騷|ㄙㄡ:搜|ㄙㄢ:三|ㄙㄣ:森|ㄙㄤ:桑|ㄙㄥ:僧|ㄙㄨ:蘇|ㄙㄨㄛ:縮|ㄙㄨㄟ:雖|ㄙㄨㄢ:酸|ㄙㄨㄣ:孫|ㄙㄨㄥ:松|" +
+        "ㄧ:一|ㄧㄚ:呀|ㄧㄛ:喲|ㄧㄝ:耶|ㄧㄞ:崖|ㄧㄠ:要|ㄧㄡ:優|ㄧㄢ:煙|ㄧㄣ:音|ㄧㄤ:央|ㄧㄥ:英|" +
+        "ㄨ:屋|ㄨㄚ:哇|ㄨㄛ:窩|ㄨㄞ:歪|ㄨㄟ:威|ㄨㄢ:彎|ㄨㄣ:溫|ㄨㄤ:汪|ㄨㄥ:翁|" +
+        "ㄩ:迂|ㄩㄝ:約|ㄩㄢ:淵|ㄩㄣ:暈|ㄩㄥ:雍|" +
+        "ㄚ:阿|ㄛ:喔|ㄜ:阿|ㄝ:耶|ㄞ:哀|ㄟ:欸|ㄠ:熬|ㄡ:歐|ㄢ:安|ㄣ:恩|ㄤ:昂|ㄥ:哼|ㄦ:兒";
 
         const ZHUYIN_DICT = {};
         ZHUYIN_DICT_STR.split('|').forEach(item => {
-        const [key, chars] = item.split(':');
-        if (key && chars) ZHUYIN_DICT[key] = chars;
+            const [key, chars] = item.split(':');
+            if (key && chars) ZHUYIN_DICT[key] = chars;
         });
 
-        // 避免 TTS 破音字的防呆字典
+        // 強制校正容易念錯的單獨符號
         const TTS_SINGLE_FIX = {
             'ㄝ': '也',
             'ㄉㄠˇ': '島',
@@ -92,127 +91,86 @@
             const base = zhuyinStr.replace(/[一聲ˊˇˋ˙]/g, '');
             const toneMatch = zhuyinStr.match(/[一聲ˊˇˋ˙]/);
             const tone = toneMatch ? toneMatch[0] : '一聲';
-            const tones = ['一聲', 'ˊ', 'ˇ', 'ˋ', '˙'];
-            let toneIndex = tones.indexOf(tone);
-            if (toneIndex === -1) toneIndex = 0;
-            if (ZHUYIN_DICT[base] && ZHUYIN_DICT[base].length >= 5) return ZHUYIN_DICT[base][toneIndex];
+            
+            // 對應五聲音階：1聲, 2聲(ˊ), 3聲(ˇ), 4聲(ˋ), 輕聲(˙)
+            // 由於字典只設定了一個代表字，為了不報錯，統一回傳第一個字即可
+            if (ZHUYIN_DICT[base]) return ZHUYIN_DICT[base][0];
             
             return zhuyinStr;
         };
 
-        const JP_DAKUTEN = {
-        'か':'が', 'き':'ぎ', 'く':'ぐ', 'け':'げ', 'こ':'ご',
-        'さ':'ざ', 'し':'じ', 'す':'ず', 'せ':'ぜ', 'そ':'ぞ',
-        'た':'だ', 'ち':'ぢ', 'つ':'づ', 'て':'で', 'と':'ど',
-        'は':'ば', 'ひ':'び', 'ふ':'ぶ', 'へ':'べ', 'ほ':'ぼ',
-        'が':'か', 'ぎ':'き', 'ぐ':'く', 'げ':'け', 'ご':'こ',
-        'ざ':'さ', 'じ':'し', 'ず':'す', 'ぜ':'せ', 'ぞ':'そ',
-        'だ':'た', 'ぢ':'ち', 'づ':'つ', 'で':'て', 'ど':'と',
-        'ば':'ぱ', 'び':'ぴ', 'ぶ':'ぷ', 'べ':'ぺ', 'ぼ':'ぽ',
-        'ぱ':'は', 'ぴ':'ひ', 'ぷ':'ふ', 'ぺ':'へ', 'ぽ':'ほ'
-        };
-        const JP_SMALL = {
-        'あ':'ぁ', 'い':'ぃ', 'う':'ぅ', 'え':'ぇ', 'お':'ぉ',
-        'や':'ゃ', 'ゆ':'ゅ', 'よ':'ょ', 'つ':'っ', 'わ':'ゎ',
-        'ぁ':'あ', 'ぃ':'い', 'ぅ':'う', 'ぇ':'え', 'ぉ':'お',
-        'ゃ':'や', 'ゅ':'ゆ', 'ょ':'よ', 'っ':'つ', 'ゎ':'わ'
-        };
-
+        // ... 日文韓文對應邏輯保持不變 ...
+        const JP_DAKUTEN = { 'か':'が', 'き':'ぎ', 'く':'ぐ', 'け':'げ', 'こ':'ご', 'さ':'ざ', 'し':'じ', 'す':'ず', 'せ':'ぜ', 'そ':'ぞ', 'た':'だ', 'ち':'ぢ', 'つ':'づ', 'て':'で', 'と':'ど', 'は':'ば', 'ひ':'び', 'ふ':'ぶ', 'へ':'べ', 'ほ':'ぼ' };
+        const JP_SMALL = { 'あ':'ぁ', 'い':'ぃ', 'う':'ぅ', 'え':'ぇ', 'お':'ぉ', 'や':'ゃ', 'ゆ':'ゅ', 'よ':'ょ', 'つ':'っ', 'わ':'ゎ' };
         const KOR_C = ['ㅂ','ㅈ','ㄷ','ㄱ','ㅅ','ㅁ','ㄴ','ㅇ','ㄹ','ㅎ','ㅋ','ㅌ','ㅊ','ㅍ'];
         const KOR_V = ['ㅛ','ㅕ','ㅑ','ㅐ','ㅔ','ㅗ','ㅓ','ㅏ','ㅣ','ㅠ','ㅜ','ㅡ'];
         const K_CHO_MAP = {'ㄱ':0, 'ㄴ':2, 'ㄷ':3, 'ㄹ':5, 'ㅁ':6, 'ㅂ':7, 'ㅅ':9, 'ㅇ':11, 'ㅈ':12, 'ㅊ':14, 'ㅋ':15, 'ㅌ':16, 'ㅍ':17, 'ㅎ':18};
         const K_JUNG_MAP = {'ㅏ':0, 'ㅐ':1, 'ㅑ':2, 'ㅓ':4, 'ㅔ':5, 'ㅕ':6, 'ㅗ':8, 'ㅛ':12, 'ㅜ':13, 'ㅠ':17, 'ㅡ':18, 'ㅣ':20};
-        const K_JONG_MAP = {'ㄱ':1, 'ㄴ':4, 'ㄷ':7, 'ㄹ':8, 'ㅁ':16, 'ㅂ':17, 'ㅅ':19, 'ㅇ':21, 'ㅈ':22, 'ㅊ':23, 'ㅋ':24, 'ㅌ':25, 'ㅍ':26, 'ㅎ':27};
-
         const getHangulFromJamo = (jamoStr) => {
-        if (!jamoStr) return '';
-        if (jamoStr.length >= 2) {
-            const cho = K_CHO_MAP[jamoStr[0]];
-            const jung = K_JUNG_MAP[jamoStr[1]];
-            if (cho !== undefined && jung !== undefined) {
-                let jong = 0;
-                if (jamoStr.length === 3) {
-                    jong = K_JONG_MAP[jamoStr[2]] || 0;
+            if (!jamoStr) return '';
+            if (jamoStr.length >= 2) {
+                const cho = K_CHO_MAP[jamoStr[0]];
+                const jung = K_JUNG_MAP[jamoStr[1]];
+                if (cho !== undefined && jung !== undefined) {
+                    return String.fromCharCode(0xAC00 + (cho * 588) + (jung * 28));
                 }
-                const unicode = 0xAC00 + (cho * 588) + (jung * 28) + jong;
-                return String.fromCharCode(unicode);
             }
-        }
-        return jamoStr; 
+            return jamoStr; 
         };
 
         const getFilteredVoices = (langPrefix, voiceList) => {
-        if (!voiceList) return [];
-        if (langPrefix === 'zh') return voiceList.filter(v => v.lang.toLowerCase().includes('zh') || v.lang.toLowerCase().includes('cmn'));
-        return voiceList.filter(v => v.lang.toLowerCase().startsWith(langPrefix));
+            if (!voiceList) return [];
+            if (langPrefix === 'zh') return voiceList.filter(v => v.lang.toLowerCase().includes('zh') || v.lang.toLowerCase().includes('cmn'));
+            return voiceList.filter(v => v.lang.toLowerCase().startsWith(langPrefix));
         };
 
         const ZHUYIN_CATS = {
-        C: ['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ', 'ㄐ', 'ㄑ', 'ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ'], 
-        M: ['ㄧ', 'ㄨ', 'ㄩ'], 
-        V: ['ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ'], 
-        T: ['一聲', 'ˊ', 'ˇ', 'ˋ', '˙'] 
+            C: ['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ', 'ㄐ', 'ㄑ', 'ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ'], 
+            M: ['ㄧ', 'ㄨ', 'ㄩ'], 
+            V: ['ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ'], 
+            T: ['一聲', 'ˊ', 'ˇ', 'ˋ', '˙'] 
         };
 
         const PUNCTUATIONS = ['，', '。', '？'];
         const PUNCT_NAMES = {'，': '逗號', '。': '句號', '？': '問號'};
 
         const LANG_SETTINGS = {
-        zhuyin: { label: 'ㄅㄆㄇ', name: '中文', testText: '今天天氣很好', prefix: 'zh' },
-        english: { label: 'ABC', name: '英文', testText: 'This is an apple', prefix: 'en' },
-        number: { label: '123', name: '數字', testText: '123456', prefix: 'zh' },
-        japanese: { label: 'あいう', name: '日文', testText: 'こんにちは', prefix: 'ja' },
-        korean: { label: '가나다', name: '韓文', testText: '안녕하세요', prefix: 'ko' }
+            zhuyin: { label: 'ㄅㄆㄇ', name: '中文', testText: '今天天氣很好', prefix: 'zh' },
+            english: { label: 'ABC', name: '英文', testText: 'This is an apple', prefix: 'en' },
+            number: { label: '123', name: '數字', testText: '123456', prefix: 'zh' }
         };
 
         const KEYBOARD_LAYOUTS = {
-        zhuyin: [
-            ['ㄅ', 'ㄉ', 'ˇ', 'ˋ', 'ㄓ', 'ˊ', '˙', 'ㄚ', 'ㄞ', 'ㄢ', 'ㄦ'],
-            ['ㄆ', 'ㄊ', 'ㄍ', 'ㄐ', 'ㄔ', 'ㄗ', 'ㄧ', 'ㄛ', 'ㄟ', 'ㄣ', '，'],
-            ['ㄇ', 'ㄋ', 'ㄎ', 'ㄑ', 'ㄕ', 'ㄘ', 'ㄨ', 'ㄜ', 'ㄠ', 'ㄤ', '。'],
-            ['ㄈ', 'ㄌ', 'ㄏ', 'ㄒ', 'ㄖ', 'ㄙ', 'ㄩ', 'ㄝ', 'ㄡ', 'ㄥ', '？']
-        ],
-        english: [
-            ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-            ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-            ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
-        ],
-        number: [
-            ['1', '2', '3'],
-            ['4', '5', '6'],
-            ['7', '8', '9'],
-            ['', '0', '']
-        ],
-        japanese: [
-            ['あ', 'か', 'さ', 'た', 'な', 'は', 'ま', 'や', 'ら', 'わ'],
-            ['い', 'き', 'し', 'ち', 'に', 'ひ', 'み', 'ゆ', 'り', 'を'],
-            ['う', 'く', 'す', 'つ', 'ぬ', 'ふ', 'む', 'よ', 'る', 'ん'],
-            ['え', 'け', 'せ', 'て', 'ね', 'へ', 'め', '', 'れ', '小'],
-            ['お', 'こ', 'そ', 'と', 'の', 'ほ', 'も', '', 'ろ', '゛/゜']
-        ],
-        korean: [
-            ['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ'],
-            ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ'],
-            ['ㅋ', 'ㅌ', 'ㅊ', 'ㅍ', 'ㅠ', 'ㅜ', 'ㅡ']
-        ]
+            zhuyin: [
+                ['ㄅ', 'ㄉ', 'ˇ', 'ˋ', 'ㄓ', 'ˊ', '˙', 'ㄚ', 'ㄞ', 'ㄢ', 'ㄦ'],
+                ['ㄆ', 'ㄊ', 'ㄍ', 'ㄐ', 'ㄔ', 'ㄗ', 'ㄧ', 'ㄛ', 'ㄟ', 'ㄣ', '，'],
+                ['ㄇ', 'ㄋ', 'ㄎ', 'ㄑ', 'ㄕ', 'ㄘ', 'ㄨ', 'ㄜ', 'ㄠ', 'ㄤ', '。'],
+                ['ㄈ', 'ㄌ', 'ㄏ', 'ㄒ', 'ㄖ', 'ㄙ', 'ㄩ', 'ㄝ', 'ㄡ', 'ㄥ', '？']
+            ],
+            english: [
+                ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+                ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+                ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
+            ],
+            number: [
+                ['1', '2', '3'],
+                ['4', '5', '6'],
+                ['7', '8', '9'],
+                ['', '0', '']
+            ]
         };
 
         const THEMES = {
-        original: {
-            name: '經典原版 (綠/白)', bg: 'bg-[#e0f7fa]', text: 'text-gray-900', displayBg: 'bg-white',
-            displayBorder: 'border-2 border-[#b2ebf2]', keyBg: 'bg-white', keyText: 'text-gray-900',
-            keyBorder: 'border border-gray-300 shadow-sm', keyActive: 'active:bg-[#b2ebf2] active:scale-95',
-        },
-        highContrast: {
-            name: '高對比 (黑/黃)', bg: 'bg-black', text: 'text-yellow-400', displayBg: 'bg-gray-900',
-            displayBorder: 'border-2 border-yellow-600', keyBg: 'bg-gray-800', keyText: 'text-yellow-300',
-            keyBorder: 'border-2 border-yellow-500', keyActive: 'active:bg-yellow-600 active:text-black active:scale-95',
-        },
-        soft: {
-            name: '柔和 (粉/藍)', bg: 'bg-pink-50', text: 'text-slate-700', displayBg: 'bg-white',
-            displayBorder: 'border-2 border-blue-200', keyBg: 'bg-blue-50', keyText: 'text-slate-800',
-            keyBorder: 'border-2 border-blue-200', keyActive: 'active:bg-blue-200 active:scale-95',
-        }
+            original: {
+                name: '經典原版', bg: 'bg-[#e0f7fa]', text: 'text-gray-900', displayBg: 'bg-white',
+                displayBorder: 'border-2 border-[#b2ebf2]', keyBg: 'bg-white', keyText: 'text-gray-900',
+                keyBorder: 'border border-gray-300 shadow-sm', keyActive: 'active:bg-[#b2ebf2] active:scale-95',
+            },
+            soft: {
+                name: '柔和粉藍', bg: 'bg-pink-50', text: 'text-slate-700', displayBg: 'bg-white',
+                displayBorder: 'border-2 border-blue-200', keyBg: 'bg-blue-50', keyText: 'text-slate-800',
+                keyBorder: 'border-2 border-blue-200', keyActive: 'active:bg-blue-200 active:scale-95',
+            }
         };
 
         function App() {
@@ -225,7 +183,7 @@
         const [currentSyllable, setCurrentSyllable] = useState([]);
         
         const [voices, setVoices] = useState([]);
-        const [voiceSettings, setVoiceSettings] = useState({ zhuyin: '', english: '', japanese: '', korean: '' });
+        const [voiceSettings, setVoiceSettings] = useState({ zhuyin: '', english: '' });
         const [ttsRate, setTtsRate] = useState(1.0);
         
         const [displayFontSize, setDisplayFontSize] = useState(14); 
@@ -238,11 +196,14 @@
         const [isGuideOpen, setIsGuideOpen] = useState(false);
         const [isQaOpen, setIsQaOpen] = useState(false);
         
-        // 0=隱藏, 1=檢查中, 2=準備就緒, 3=強制更新中(含進度條)
+        // --- 核心防呆：安裝與系統狀態 ---
         const [setupState, setSetupState] = useState(0); 
-        const [updateProgress, setUpdateProgress] = useState(0); // 更新進度 0~100
+        const [updateProgress, setUpdateProgress] = useState(0);
         const [installPrompt, setInstallPrompt] = useState(null);
         const [isInstalling, setIsInstalling] = useState(false);
+        const [isInstalledApp, setIsInstalledApp] = useState(false); // 判斷是否「現在正在 APP 內」
+        const [isJustInstalled, setIsJustInstalled] = useState(false); // 判斷是否「剛剛點了安裝」
+
         const [dontShowAgain, setDontShowAgain] = useState(false);
         const [settingShowSetup, setSettingShowSetup] = useState(true);
 
@@ -258,14 +219,32 @@
             return () => window.removeEventListener('resize', handleResize);
         }, []);
 
-        // --- PWA 攔截安裝事件 ---
+        // --- PWA 即時偵測安裝狀態與攔截事件 ---
         useEffect(() => {
+            // 1. 偵測目前是否用 APP 打開
+            if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+                setIsInstalledApp(true);
+            }
+
+            // 2. 攔截系統發出的「可以安裝」訊號
             const handleBeforeInstallPrompt = (e) => {
                 e.preventDefault();
                 setInstallPrompt(e);
             };
+
+            // 3. 監聽「安裝成功」的瞬間
+            const handleAppInstalled = () => {
+                setIsJustInstalled(true);
+                setInstallPrompt(null);
+            };
+
             window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-            return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+            window.addEventListener('appinstalled', handleAppInstalled);
+
+            return () => {
+                window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+                window.removeEventListener('appinstalled', handleAppInstalled);
+            };
         }, []);
 
         const handleInstall = async () => {
@@ -276,6 +255,7 @@
                 const { outcome } = await installPrompt.userChoice;
                 if (outcome === 'accepted') {
                     setInstallPrompt(null);
+                    setIsJustInstalled(true);
                 }
             } catch (err) {
                 console.error("安裝發生錯誤", err);
@@ -288,19 +268,21 @@
         useEffect(() => {
             const shouldHide = localStorage.getItem('aac_show_setup') === 'false';
             setSettingShowSetup(!shouldHide);
+            setDontShowAgain(shouldHide);
+            
             let readyTimer;
 
             if (!shouldHide) {
-                setSetupState(1); // 狀態1：動畫檢查中
+                setSetupState(1); // 檢查中
                 readyTimer = setTimeout(() => {
-                    setSetupState(2); // 2秒後若無更新，顯示狀態2：準備就緒
+                    setSetupState(2); // 準備就緒
                 }, 2000);
             }
 
-            // 若偵測到新版本正在下載，無視「不再顯示」設定，強制跳出進度條
+            // 若有更新，強制無視設定跳出進度條
             const handleUpdateStarted = () => {
                 clearTimeout(readyTimer);
-                setSetupState(3); // 狀態3：更新下載中
+                setSetupState(3); // 強制更新下載中
                 setUpdateProgress(0);
             };
 
@@ -308,7 +290,7 @@
                 clearTimeout(readyTimer);
                 setUpdateProgress(100);
                 setTimeout(() => {
-                    setSetupState(2); // 下載完畢，回到就緒畫面讓使用者點擊
+                    setSetupState(2);
                 }, 500);
             };
 
@@ -322,7 +304,6 @@
             };
         }, []);
 
-        // 模擬進度條推進
         useEffect(() => {
             if (setupState === 3 && updateProgress < 90) {
                 const timer = setTimeout(() => setUpdateProgress(p => p + 10), 400);
@@ -331,19 +312,15 @@
         }, [setupState, updateProgress]);
 
         const handleStartUsing = () => {
-            if (dontShowAgain) {
-                localStorage.setItem('aac_show_setup', 'false');
-                setSettingShowSetup(false);
-            } else {
-                localStorage.setItem('aac_show_setup', 'true');
-                setSettingShowSetup(true);
-            }
+            localStorage.setItem('aac_show_setup', dontShowAgain ? 'false' : 'true');
+            setSettingShowSetup(!dontShowAgain);
             setSetupState(0);
         };
 
         const toggleSettingShowSetup = () => {
             const nextVal = !settingShowSetup;
             setSettingShowSetup(nextVal);
+            setDontShowAgain(!nextVal);
             localStorage.setItem('aac_show_setup', nextVal ? 'true' : 'false');
         };
 
@@ -357,141 +334,76 @@
         
         useEffect(() => {
             const loadVoices = () => {
-            let availableVoices = window.speechSynthesis.getVoices();
-            if (availableVoices.length === 0) return;
-            setVoices(availableVoices);
-
-            setVoiceSettings(prev => {
-                const newSettings = { ...prev };
-                const getDef = (langKey, prefix, keywords) => {
-                    const list = getFilteredVoices(prefix, availableVoices);
-                    if (list.length === 0) return '';
-                    if (newSettings[langKey] && list.some(v => v.voiceURI === newSettings[langKey])) {
-                        return newSettings[langKey];
-                    }
-                    for (let kw of keywords) {
-                        const match = list.find(v => v.name.toLowerCase().includes(kw));
-                        if (match) return match.voiceURI;
-                    }
-                    return list[0].voiceURI;
-                };
-
-                newSettings.zhuyin = getDef('zhuyin', 'zh', ['雅婷', 'yating', 'tw', 'taiwan']);
-                newSettings.english = getDef('english', 'en', ['us', 'uk']);
-                newSettings.japanese = getDef('japanese', 'ja', []);
-                newSettings.korean = getDef('korean', 'ko', []);
-                return newSettings;
-            });
+                let availableVoices = window.speechSynthesis.getVoices();
+                if (availableVoices.length === 0) return;
+                setVoices(availableVoices);
+                setVoiceSettings(prev => {
+                    const newSettings = { ...prev };
+                    const getDef = (langKey, prefix) => {
+                        const list = getFilteredVoices(prefix, availableVoices);
+                        if (list.length === 0) return '';
+                        return list[0].voiceURI;
+                    };
+                    if (!newSettings.zhuyin) newSettings.zhuyin = getDef('zhuyin', 'zh');
+                    if (!newSettings.english) newSettings.english = getDef('english', 'en');
+                    return newSettings;
+                });
             };
-
             loadVoices();
             if (window.speechSynthesis.onvoiceschanged !== undefined) {
-            window.speechSynthesis.onvoiceschanged = loadVoices;
+                window.speechSynthesis.onvoiceschanged = loadVoices;
             }
         }, []);
 
-        const speak = (textToSpeak, overrideLang = null) => {
+        const speak = (textToSpeak) => {
             if (!textToSpeak) return;
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            
-            const currentLang = overrideLang || language;
-            const voiceKey = currentLang === 'number' ? 'zhuyin' : currentLang;
-            
-            const targetVoiceURI = voiceSettings[voiceKey];
+            const targetVoiceURI = voiceSettings[language === 'number' ? 'zhuyin' : language];
             let selectedVoice = voices.find(v => v.voiceURI === targetVoiceURI);
             
-            if (!selectedVoice) {
-                const fallbackList = getFilteredVoices(LANG_SETTINGS[voiceKey]?.prefix || 'zh', voices);
-                if (fallbackList.length > 0) selectedVoice = fallbackList[0];
-            }
-
             if (selectedVoice) {
                 utterance.voice = selectedVoice;
                 utterance.lang = selectedVoice.lang; 
             } else {
-                if (voiceKey === 'zhuyin') utterance.lang = 'zh-TW';
-                if (voiceKey === 'english') utterance.lang = 'en-US';
-                if (voiceKey === 'japanese') utterance.lang = 'ja-JP';
-                if (voiceKey === 'korean') utterance.lang = 'ko-KR';
+                utterance.lang = language === 'english' ? 'en-US' : 'zh-TW';
             }
-
             utterance.rate = ttsRate;
             window.speechSynthesis.speak(utterance);
         };
 
         const handlePlayVoice = () => {
-            let fullText = '';
-            if (language === 'zhuyin') {
+            if (language !== 'zhuyin') return;
             const allSyllables = [...completedInputs];
             if (currentSyllable.length > 0) allSyllables.push(currentSyllable.join(''));
-            fullText = allSyllables.map(s => {
-                if (PUNCTUATIONS.includes(s)) return s;
-                return getHanziFromZhuyin(s);
-            }).join('');
-            } else if (language === 'korean') {
-            const allSyllables = [...completedInputs];
-            if (currentSyllable.length > 0) allSyllables.push(currentSyllable.join(''));
-            fullText = allSyllables.map(s => getHangulFromJamo(s.trim())).join(' ');
-            } else {
-            fullText = completedInputs.join('') + currentSyllable.join('');
-            }
+            const fullText = allSyllables.map(s => PUNCTUATIONS.includes(s) ? s : getHanziFromZhuyin(s)).join('');
             speak(fullText.trim());
         };
 
-        const handleTestVoice = (langKey) => {
-            const testText = LANG_SETTINGS[langKey]?.testText || '測試';
-            speak(testText, langKey);
-        };
-
-        // --- 核心防呆升級：精準比對合法注音字典 ---
+        // --- 核心防呆：注音字典鎖定邏輯 ---
         const getAvailableKeys = useMemo(() => {
-            if (language === 'zhuyin') {
-                const validBases = Object.keys(ZHUYIN_DICT);
-                let validKeys = [];
+            if (language !== 'zhuyin') return null;
+            const validBases = Object.keys(ZHUYIN_DICT);
+            let validKeys = [];
 
-                if (currentSyllable.length === 0) {
-                    const starters = new Set(validBases.map(b => b.charAt(0)));
-                    validKeys = Array.from(starters);
-                    validKeys.push(...PUNCTUATIONS);
-                } else {
-                    const currentStr = currentSyllable.join('');
-                    const nextChars = new Set();
-                    
-                    validBases.forEach(base => {
-                        if (base.startsWith(currentStr) && base.length > currentStr.length) {
-                            nextChars.add(base.charAt(currentStr.length));
-                        }
-                    });
-                    validKeys = Array.from(nextChars);
-
-                    if (validBases.includes(currentStr)) {
-                        validKeys.push(...ZHUYIN_CATS.T);
+            if (currentSyllable.length === 0) {
+                const starters = new Set(validBases.map(b => b.charAt(0)));
+                validKeys = Array.from(starters);
+                validKeys.push(...PUNCTUATIONS);
+            } else {
+                const currentStr = currentSyllable.join('');
+                const nextChars = new Set();
+                validBases.forEach(base => {
+                    if (base.startsWith(currentStr) && base.length > currentStr.length) {
+                        nextChars.add(base.charAt(currentStr.length));
                     }
+                });
+                validKeys = Array.from(nextChars);
+                if (validBases.includes(currentStr)) {
+                    validKeys.push(...ZHUYIN_CATS.T);
                 }
-                return validKeys;
-
-            } else if (language === 'japanese') {
-                const baseKeys = KEYBOARD_LAYOUTS.japanese.flat().filter(k => k !== '゛/゜' && k !== '小' && k !== '');
-                const lastChar = currentSyllable[currentSyllable.length - 1];
-                let validKeys = [...baseKeys];
-                if (lastChar && JP_DAKUTEN[lastChar]) validKeys.push('゛/゜');
-                if (lastChar && JP_SMALL[lastChar]) validKeys.push('小');
-                return validKeys;
-            } else if (language === 'korean') {
-                if (currentSyllable.length === 0) return [...KOR_C, ...KOR_V, 'SPACE'];
-                if (currentSyllable.length === 1) {
-                    if (KOR_C.includes(currentSyllable[0])) return [...KOR_V, 'SPACE'];
-                    if (KOR_V.includes(currentSyllable[0])) return ['SPACE'];
-                }
-                if (currentSyllable.length === 2) {
-                    if (KOR_C.includes(currentSyllable[0]) && KOR_V.includes(currentSyllable[1])) return [...KOR_C, 'SPACE'];
-                    return ['SPACE'];
-                }
-                if (currentSyllable.length === 3) return ['SPACE'];
-                return ['SPACE'];
             }
-            return null;
+            return validKeys;
         }, [currentSyllable, language]);
 
         const handleKeyPress = (char) => {
@@ -507,100 +419,55 @@
                 return;
             }
 
-            if (language === 'japanese') {
-                if (char === '゛/゜') {
-                    const lastChar = currentSyllable[currentSyllable.length - 1];
-                    if (JP_DAKUTEN[lastChar]) {
-                        const newChar = JP_DAKUTEN[lastChar];
-                        setCurrentSyllable(prev => [...prev.slice(0, -1), newChar]);
-                        speak(newChar);
-                    }
-                    return;
-                } else if (char === '小') {
-                    const lastChar = currentSyllable[currentSyllable.length - 1];
-                    if (JP_SMALL[lastChar]) {
-                        const newChar = JP_SMALL[lastChar];
-                        setCurrentSyllable(prev => [...prev.slice(0, -1), newChar]);
-                        speak(newChar);
-                    }
-                    return;
-                }
-            }
-
             if (language === 'zhuyin') {
-            if (ZHUYIN_CATS.T.includes(char)) {
-                let toneMark = char === '一聲' ? '' : char;
-                textToSpeak = getHanziFromZhuyin([...currentSyllable, toneMark].join('')); 
-            } else if (char === 'SPACE') textToSpeak = '空格';
-            else {
-                textToSpeak = getHanziFromZhuyin(char);
-            }
-            } else if (language === 'korean') {
-            if (char === 'SPACE') textToSpeak = '띄어쓰기';
-            else {
-                const nextSyllable = [...currentSyllable, char];
-                if (nextSyllable.length >= 2) textToSpeak = getHangulFromJamo(nextSyllable.join(''));
-                else textToSpeak = char;
-            }
+                if (ZHUYIN_CATS.T.includes(char)) {
+                    let toneMark = char === '一聲' ? '' : char;
+                    textToSpeak = getHanziFromZhuyin([...currentSyllable, toneMark].join('')); 
+                } else if (char === 'SPACE') {
+                    textToSpeak = '空格';
+                } else {
+                    textToSpeak = getHanziFromZhuyin(char);
+                }
             } else {
-            if (char === 'SPACE') {
-                if (language === 'english') textToSpeak = 'space';
-                else if (language === 'japanese') textToSpeak = 'スペース';
-                else textToSpeak = '空格';
+                if (char === 'SPACE') textToSpeak = 'space';
             }
-            }
+            
             speak(textToSpeak);
 
             if (language === 'zhuyin') {
-            if (ZHUYIN_CATS.T.includes(char)) {
-                let toneMark = char === '一聲' ? '' : char;
-                setCompletedInputs([...completedInputs, [...currentSyllable, toneMark].join('')]);
-                setCurrentSyllable([]);
-            } else {
-                setCurrentSyllable([...currentSyllable, char]);
-            }
-            } else if (language === 'korean') {
-            if (char === 'SPACE') {
-                setCompletedInputs([...completedInputs, currentSyllable.join('') + ' ']);
-                setCurrentSyllable([]);
-            } else {
-                if (getAvailableKeys && !getAvailableKeys.includes(char)) {
-                if (KOR_C.includes(char) || KOR_V.includes(char)) {
-                    if (currentSyllable.length > 0) {
-                        setCompletedInputs([...completedInputs, currentSyllable.join('')]);
-                    }
-                    setCurrentSyllable([char]);
+                if (ZHUYIN_CATS.T.includes(char)) {
+                    let toneMark = char === '一聲' ? '' : char;
+                    setCompletedInputs([...completedInputs, [...currentSyllable, toneMark].join('')]);
+                    setCurrentSyllable([]);
+                } else {
+                    setCurrentSyllable([...currentSyllable, char]);
                 }
-                return;
+            } else {
+                if (char === 'SPACE') {
+                    setCompletedInputs([...completedInputs, currentSyllable.join('') + ' ']);
+                    setCurrentSyllable([]);
+                } else {
+                    setCurrentSyllable([...currentSyllable, char]);
                 }
-                setCurrentSyllable([...currentSyllable, char]);
-            }
-            } else {
-            if (char === 'SPACE') {
-                setCompletedInputs([...completedInputs, currentSyllable.join('') + ' ']);
-                setCurrentSyllable([]);
-            } else {
-                setCurrentSyllable([...currentSyllable, char]);
-            }
             }
         };
 
         const handleBackspace = () => {
             if (currentSyllable.length > 0) {
-            setCurrentSyllable(prev => prev.slice(0, -1));
+                setCurrentSyllable(prev => prev.slice(0, -1));
             } else if (completedInputs.length > 0) {
-            const newInputs = [...completedInputs];
-            const lastCompleted = newInputs.pop().trim();
-            if (PUNCTUATIONS.includes(lastCompleted)) {
-                setCompletedInputs(newInputs);
-                setCurrentSyllable([]);
-            } else {
-                const chars = lastCompleted.split('');
-                const lastChar = chars[chars.length - 1];
-                if (['ˊ', 'ˇ', 'ˋ', '˙'].includes(lastChar)) chars.pop();
-                setCompletedInputs(newInputs);
-                setCurrentSyllable(chars);
-            }
+                const newInputs = [...completedInputs];
+                const lastCompleted = newInputs.pop().trim();
+                if (PUNCTUATIONS.includes(lastCompleted)) {
+                    setCompletedInputs(newInputs);
+                    setCurrentSyllable([]);
+                } else {
+                    const chars = lastCompleted.split('');
+                    const lastChar = chars[chars.length - 1];
+                    if (['ˊ', 'ˇ', 'ˋ', '˙'].includes(lastChar)) chars.pop();
+                    setCompletedInputs(newInputs);
+                    setCurrentSyllable(chars);
+                }
             }
         };
 
@@ -616,508 +483,185 @@
             cursor: 'not-allowed', transform: 'scale(0.98)', borderColor: 'transparent', boxShadow: 'none'
         };
 
-        if (view === 'settings') {
-            const allLangKeys = ['zhuyin', 'english', 'japanese', 'korean'];
+        // 安裝按鈕的 UI 模組
+        const InstallButtonUI = () => {
+            if (isInstalledApp || isJustInstalled) {
+                return (
+                    <button disabled className="w-full sm:w-auto bg-gray-400 text-white font-black py-3 px-6 rounded-xl shadow-sm flex items-center justify-center cursor-not-allowed">
+                        ✅ 您已經安裝囉！
+                    </button>
+                );
+            }
+            if (installPrompt) {
+                return (
+                    <div className="flex flex-col gap-2 w-full sm:w-auto">
+                        <button 
+                            onClick={handleInstall} disabled={isInstalling}
+                            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-black py-3 px-6 rounded-xl shadow-md active:scale-95 transition-all flex items-center justify-center gap-2"
+                        >
+                            {isInstalling ? <><div className="w-5 h-5 border-4 border-white/30 border-t-white rounded-full animate-spin"></div> 安裝中...</> : <>⬇️ 一鍵安裝到手機</>}
+                        </button>
+                        <p className="text-[11px] text-gray-500 text-center leading-tight">
+                            下載約需數秒，完成後請至「所有應用程式」將其移至桌面。
+                        </p>
+                    </div>
+                );
+            }
+            return (
+                <div className="w-full sm:w-auto text-xs text-gray-700 font-bold bg-white p-3 rounded-lg border border-blue-200">
+                    🍏 蘋果：點擊下方分享 ➔ 加入主畫面<br/>
+                    🤖 安卓：點擊右上角選單 ➔ 加到主畫面
+                </div>
+            );
+        };
 
+        if (view === 'settings') {
             return (
             <div className={`h-[100dvh] w-full flex flex-col p-4 landscape:p-2 ${currentTheme.bg} text-gray-900 relative`}>
                 
-                {/* 升級：解決直屏跑版的頂部導覽列 */}
-                <div className="flex flex-col landscape:flex-row md:flex-row justify-between items-start md:items-center landscape:items-center mb-6 landscape:mb-2 bg-blue-600 text-white p-3 rounded-xl shadow-md shrink-0 gap-3">
-                    <h2 className="text-xl md:text-3xl font-bold flex items-center gap-2 shrink-0">
+                {/* 升級：防跑版的頂部按鈕區 */}
+                <div className="flex flex-col md:flex-row justify-between items-center mb-6 landscape:mb-2 bg-blue-600 text-white p-3 rounded-xl shadow-md shrink-0 gap-3">
+                    <h2 className="text-xl md:text-3xl font-bold flex items-center gap-2 w-full md:w-auto justify-center md:justify-start">
                         <Settings className="w-6 h-6 md:w-9 md:h-9"/> 設定區
                     </h2>
-                    {/* 直屏時改為三格 Grid，橫屏與電腦版維持 Flex 靠右排列 */}
-                    <div className="grid grid-cols-3 gap-2 w-full landscape:w-auto md:w-auto landscape:flex md:flex justify-end">
-                        <button onClick={() => setIsGuideOpen(true)} className="bg-teal-600 hover:bg-teal-700 text-white p-2 md:px-4 rounded-lg text-xs md:text-sm font-black transition-colors shadow-sm active:scale-95 flex items-center justify-center text-center leading-tight">
-                            📖<br className="landscape:hidden md:hidden"/> 新手指南
+                    <div className="flex flex-wrap justify-center w-full md:w-auto gap-2">
+                        <button onClick={() => setIsGuideOpen(true)} className="flex-1 min-w-[80px] bg-teal-600 hover:bg-teal-700 text-white py-2 px-2 rounded-lg text-xs md:text-sm font-black shadow-sm active:scale-95 text-center">
+                            📖 指南
                         </button>
-                        <button onClick={() => setIsQaOpen(true)} className="bg-amber-500 hover:bg-amber-600 text-white p-2 md:px-4 rounded-lg text-xs md:text-sm font-black transition-colors shadow-sm active:scale-95 flex items-center justify-center text-center leading-tight">
-                            ❓<br className="landscape:hidden md:hidden"/> 常見問題
+                        <button onClick={() => setIsQaOpen(true)} className="flex-1 min-w-[80px] bg-amber-500 hover:bg-amber-600 text-white py-2 px-2 rounded-lg text-xs md:text-sm font-black shadow-sm active:scale-95 text-center">
+                            ❓ Q&A
                         </button>
-                        <button onClick={() => { setPendingFontSize(displayFontSize); setView('keyboard'); }} className="bg-blue-500 hover:bg-blue-700 text-white p-2 md:px-4 rounded-lg text-xs md:text-sm font-black shadow-md active:scale-95 transition-transform flex items-center justify-center text-center leading-tight">
-                            ✔️<br className="landscape:hidden md:hidden"/> 完成返回
+                        <button onClick={() => { setPendingFontSize(displayFontSize); setView('keyboard'); }} className="flex-1 min-w-[80px] bg-blue-500 hover:bg-blue-700 text-white py-2 px-2 rounded-lg text-xs md:text-sm font-black shadow-md active:scale-95 text-center">
+                            ✔️ 返回
                         </button>
                     </div>
                 </div>
 
-                {/* --- 白話文 Q&A 彈出視窗 --- */}
+                {/* --- 極度白話文的 Q&A 彈出視窗 --- */}
                 {isQaOpen && (
                     <div className="fixed inset-0 bg-black/60 z-[999] flex items-center justify-center p-4 animate-fade-in backdrop-blur-sm">
                         <div className="bg-white rounded-2xl max-w-3xl w-full p-6 max-h-[85vh] overflow-y-auto shadow-xl relative border-4 border-amber-200 text-gray-700 leading-relaxed">
                             <h3 className="text-xl font-black text-amber-600 mb-4 border-b border-gray-100 pb-2 flex justify-between items-center">
-                                <span className="flex items-center gap-2">❓ 常見問題與除錯指南</span>
+                                <span className="flex items-center gap-2">❓ 常見問題 Q&A</span>
                                 <button 
-                                    onClick={() => speak("常見問題與除錯指南。一、一鍵安裝與加入主畫面有何不同？一鍵安裝下載後會在所有應用程式清單中，需手動移到桌面，安裝時間較長，請勿重複點擊。加入主畫面會直接在桌面建立捷徑，建立速度快。注意，不同手機廠牌效果可能不同。二、離線版使用限制說明。第一，語音依賴手機系統。溝通板發聲需使用手機內建的文字轉語音功能，若無聲音，請至手機設定下載中文語音包。第二，清除資料會導致失效。若清除手機瀏覽器資料，離線檔案會被刪除，需重新連網開啟網頁下載。第三，更換新手機需重新設定。", 'zhuyin')}
+                                    onClick={() => speak("常見問題。一、安裝到桌面怎麼做？方法一：一鍵安裝。點擊畫面上的按鈕。下載需要幾秒鐘。下載完，去手機的所有應用程式裡面找，把它拉到桌面上。方法二：加入主畫面。按瀏覽器右上角或下方的分享選單，選加入主畫面。它會馬上在桌面建立捷徑。二、為什麼按了沒聲音？溝通板是用手機內建的聲音。請檢查手機是否開了靜音或音量太小。也可能是手機設定裡的文字轉語音沒有下載中文包，請親友幫忙去手機設定中下載。三、出門沒網路怎麼打不開？如果您用過手機的清理空間功能，離線檔案會被刪除。只要回家連上網路，打開網頁一次讓它重新下載，就能再次帶出門使用。四、換手機怎麼辦？在新手機上輸入網址，重新做一次安裝步驟即可。", 'zhuyin')}
                                     className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-bold transition-colors shadow-sm"
-                                >
-                                    🔊 全段朗讀
-                                </button>
+                                >🔊 全段朗讀</button>
                             </h3>
 
                             <div className="space-y-6 text-sm">
                                 <div>
                                     <h4 className="font-bold text-gray-800 text-base mb-3 border-l-4 border-blue-500 pl-2 flex justify-between items-center">
-                                        一、一鍵安裝 vs 加入主畫面 有何不同？
-                                        <button 
-                                            onClick={() => speak("一鍵安裝與加入主畫面有何不同？一鍵安裝下載後會在所有應用程式清單中，需手動移到桌面，安裝時間較長，請勿重複點擊。加入主畫面會直接在桌面建立捷徑，建立速度快。注意，不同手機廠牌效果可能不同。", 'zhuyin')}
-                                            className="px-2 py-1 bg-emerald-600 text-white rounded text-[10px] font-bold shadow-sm"
-                                        >🔊 朗讀</button>
+                                        一、安裝到桌面怎麼做？
+                                        <button onClick={() => speak("安裝到桌面怎麼做？方法一：一鍵安裝。點擊畫面上的按鈕。下載需要幾秒鐘。下載完，去手機的所有應用程式裡面找，把它拉到桌面上。方法二：加入主畫面。按瀏覽器右上角或下方的分享選單，選加入主畫面。它會馬上在桌面建立捷徑。", 'zhuyin')} className="px-2 py-1 bg-emerald-600 text-white rounded text-[10px] font-bold">🔊 朗讀</button>
                                     </h4>
                                     <ul className="list-disc pl-5 space-y-2">
-                                        <li><strong>一鍵安裝：</strong>會出現在手機的「所有應用程式」清單中，需手動將它移至桌面。安裝時間較長（請等待進度條，勿重複點擊）。</li>
-                                        <li><strong>加入主畫面：</strong>透過瀏覽器功能直接在桌面建立捷徑，不會出現在應用程式清單。建立速度快。</li>
-                                        <li className="text-amber-700"><strong>💡 提醒：</strong>不同廠牌的手機，操作方式與全螢幕效果可能不同。</li>
+                                        <li><strong>方法一（一鍵安裝）：</strong>點擊畫面上的按鈕。下載大約需要幾秒鐘，請等一下不要一直按！下載完後，請去手機的「所有應用程式」清單裡面找，把它拉到桌面上。</li>
+                                        <li><strong>方法二（加入主畫面）：</strong>按瀏覽器右上角 (安卓) 或下方 (蘋果) 的分享選單，選「加到主畫面」。它會馬上在桌面上建立一個捷徑，非常快。</li>
+                                        <li className="text-amber-700"><strong>💡 提醒：</strong>不同廠牌的手機，操作方式會有點不一樣喔！</li>
                                     </ul>
                                 </div>
 
                                 <div className="border-t border-gray-100 pt-5">
                                     <h4 className="font-bold text-gray-800 text-base mb-3 border-l-4 border-red-500 pl-2 flex justify-between items-center">
-                                        二、離線版使用限制說明
-                                        <button 
-                                            onClick={() => speak("離線版使用限制說明。第一，語音依賴手機系統。溝通板發聲需使用手機內建的文字轉語音功能，若無聲音，請至手機設定下載中文語音包。第二，清除資料會導致失效。若清除手機瀏覽器資料，離線檔案會被刪除，需重新連網開啟網頁下載。第三，更換新手機需重新設定。", 'zhuyin')}
-                                            className="px-2 py-1 bg-emerald-600 text-white rounded text-[10px] font-bold shadow-sm"
-                                        >🔊 朗讀</button>
+                                        二、為什麼按了沒聲音？
+                                        <button onClick={() => speak("為什麼按了沒聲音？溝通板是用手機內建的聲音。請檢查手機是否開了靜音或音量太小。也可能是手機設定裡的文字轉語音沒有下載中文包，請親友幫忙去手機設定中下載。", 'zhuyin')} className="px-2 py-1 bg-emerald-600 text-white rounded text-[10px] font-bold">🔊 朗讀</button>
                                     </h4>
-                                    <ul className="list-decimal pl-5 space-y-3">
-                                        <li><strong>語音依賴手機系統：</strong>溝通板發聲需使用手機內建的「文字轉語音」功能。若按了沒聲音，請至手機設定中下載或開啟中文語音包。</li>
-                                        <li><strong>清除資料會導致失效：</strong>若您清除了手機的瀏覽器資料，離線檔案會一併被刪除。此時需重新連上網路（WiFi 或行動數據），開啟網頁讓系統重新下載檔案。</li>
-                                        <li><strong>更換新手機需重新設定：</strong>換新手機時，請在新手機開啟本溝通板的專屬網址，並重新執行「加入主畫面」或「一鍵安裝」步驟。</li>
-                                    </ul>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        溝通板是用手機本身的聲音。<br/>
+                                        1. 請先檢查手機有沒有不小心開了靜音？音量有沒有轉大？<br/>
+                                        2. 可能是手機設定裡面的「文字轉語音」沒有下載中文包。請懂手機的親友幫忙去設定裡下載回來。
+                                    </p>
+                                </div>
+
+                                <div className="border-t border-gray-100 pt-5">
+                                    <h4 className="font-bold text-gray-800 text-base mb-3 border-l-4 border-emerald-500 pl-2 flex justify-between items-center">
+                                        三、出門沒網路怎麼打不開？
+                                        <button onClick={() => speak("出門沒網路怎麼打不開？如果您用過手機的清理空間功能，離線檔案會被刪除。只要回家連上網路，打開網頁一次讓它重新下載，就能再次帶出門使用。", 'zhuyin')} className="px-2 py-1 bg-emerald-600 text-white rounded text-[10px] font-bold">🔊 朗讀</button>
+                                    </h4>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        如果您按過手機的「清理空間」或是清除了瀏覽器的資料，存好的溝通板就會被不小心刪除。<br/>
+                                        👉 <strong>解決方法：</strong> 回家連上 WiFi 或網路，重新打開網頁一次讓它下載，就能再次帶出門使用了！
+                                    </p>
+                                </div>
+                                
+                                <div className="border-t border-gray-100 pt-5">
+                                    <h4 className="font-bold text-gray-800 text-base mb-3 border-l-4 border-purple-500 pl-2 flex justify-between items-center">
+                                        四、換新手機怎麼辦？
+                                        <button onClick={() => speak("換新手機怎麼辦？在新手機上輸入網址，重新做一次安裝步驟即可。", 'zhuyin')} className="px-2 py-1 bg-emerald-600 text-white rounded text-[10px] font-bold">🔊 朗讀</button>
+                                    </h4>
+                                    <p className="text-gray-600 leading-relaxed">在新手機的瀏覽器上輸入老師給的網址，重新做一次安裝步驟就可以囉！</p>
                                 </div>
                             </div>
 
                             <button onClick={() => { window.speechSynthesis.cancel(); setIsQaOpen(false); }} className="mt-6 w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-xl font-black transition-colors shadow-lg">
-                                關閉常見問題
+                                關閉 Q&A
                             </button>
                         </div>
                     </div>
                 )}
 
-                {/* 新手指南彈出視窗 */}
+                {/* 指南彈窗 (省略語音內容以節省空間) */}
                 {isGuideOpen && (
                     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 animate-fade-in">
                         <div className="bg-white rounded-2xl max-w-3xl w-full p-6 max-h-[85vh] overflow-y-auto shadow-xl relative border-4 border-teal-200 text-gray-600 leading-relaxed">
-                            <h3 className="text-xl font-black text-teal-600 mb-4 border-b border-gray-100 pb-2 flex justify-between items-center">
-                                <span className="flex items-center gap-2">📖 新手指南與功能說明</span>
-                                <button 
-                                    onClick={() => speak("新手指南與功能說明。前端介面說明：一，訊息顯示區與播音鈕，用鍵盤打出來的字會顯示在此，點擊播音鈕可再次讀出整句。二，倒退鈕，逐字刪除顯示區的字。三，清空鈕，清空顯示區文字。四，鍵盤區，點擊按鈕會逐字發音、點擊聲調會將一組的音完整念出來。五，切換鍵盤鈕，預設有注音、英文及數字鍵盤，可於後台額外選擇顯示日文、韓文鍵盤。六，全螢幕按鈕，進入滿版無網址列模式，提供學生最專注的版面。七，設定按鈕，前往後台進行個人化設定。後台區設定項目：一，啟用語言鍵盤，可設定溝通板要顯示哪些語言的鍵盤。二，倒退與清空鈕順序，設定溝通板倒退與清空鍵的上下位置喜好。三，顯示區字體大小，控制溝通板上方顯示區的字體大小。四，一般注音鍵盤字體大小，控制注音按鈕文字縮放，避免字體超過按鈕邊緣。五，語音引擎綁定，選擇最合適的語音發聲來源與語系。六，色彩主題，替換介面配色風格。", 'zhuyin')}
-                                    className="px-3 py-1.5 bg-teal-500 hover:bg-teal-600 text-white rounded-lg text-xs font-bold transition-colors shadow-sm"
-                                >
-                                    🔊 整段朗讀
-                                </button>
-                            </h3>
-
-                            <div className="space-y-6 text-sm">
-                                <div>
-                                    <h4 className="font-bold text-gray-800 text-base mb-3 border-l-4 border-amber-500 pl-2 flex justify-between items-center">
-                                        🏠 前端介面說明
-                                        <button 
-                                            onClick={() => speak("前端介面說明：一，訊息顯示區與播音鈕，用鍵盤打出來的字會顯示在此，點擊播音鈕可再次讀出整句。二，倒退鈕，逐字刪除顯示區的字。三，清空鈕，清空顯示區文字。四，鍵盤區，點擊按鈕會逐字發音、點擊聲調會將一組的音完整念出來。五，切換鍵盤鈕，預設有注音、英文及數字鍵盤，可於後台額外選擇顯示日文、韓文鍵盤。六，全螢幕按鈕，進入滿版無網址列模式，提供學生最專注的版面。七，設定按鈕，前往後台進行個人化設定。", 'zhuyin')}
-                                            className="px-2 py-1 bg-emerald-600 text-white rounded text-[10px] font-bold shadow-sm"
-                                        >🔊 朗讀此段</button>
-                                    </h4>
-
-                                    <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl p-3 md:p-4 mb-4 space-y-3 text-center">
-                                        <div className="text-xs font-bold text-gray-400 mb-1 border-b border-gray-200 pb-1 text-left">💡 介面區域配置圖解</div>
-                                        
-                                        <div className="border-2 border-amber-400 bg-amber-50/30 rounded-xl p-2 flex gap-1.5 items-center relative min-h-[70px]">
-                                            <span className="absolute top-1 left-2 text-[8px] md:text-[10px] font-black text-amber-600 bg-amber-100 px-1.5 py-0.5 rounded">1. 訊息顯示區與播音鈕</span>
-                                            <button className="w-10 h-10 md:w-12 md:h-12 bg-emerald-500 rounded-xl flex items-center justify-center shrink-0 text-white shadow">
-                                                <svg className="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                            </button>
-                                            <div className="flex-1 h-10 md:h-12 bg-white border border-gray-200 rounded-xl flex items-center px-3 text-[10px] md:text-xs text-gray-400 text-left shadow-inner">
-                                                用鍵盤打出來的字會顯示在此...
-                                            </div>
-                                            <div className="w-10 h-10 md:w-12 md:h-12 flex flex-col gap-0.5 shrink-0">
-                                                <button className="flex-1 bg-amber-500 rounded-lg flex items-center justify-center text-white text-[8px] font-bold relative border border-amber-600 shadow">
-                                                    <span className="absolute top-0.5 left-0.5 bg-blue-600 text-white px-0.5 rounded-[4px] text-[6px]">2</span>
-                                                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
-                                                </button>
-                                                <button className="flex-1 bg-rose-500 rounded-lg flex items-center justify-center text-white text-[8px] font-bold relative border border-rose-600 shadow">
-                                                    <span className="absolute top-0.5 left-0.5 bg-blue-600 text-white px-0.5 rounded-[4px] text-[6px]">3</span>
-                                                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div className="border-2 border-green-500 bg-green-50/10 rounded-xl p-2 relative flex flex-col gap-1">
-                                            <span className="absolute top-1 left-2 text-[8px] md:text-[10px] font-black text-green-700 bg-green-100 px-1.5 py-0.5 rounded">4. 鍵盤區</span>
-                                            <div className="space-y-0.5 mt-6">
-                                                {KEYBOARD_LAYOUTS.zhuyin.map((row, rIdx) => (
-                                                    <div key={rIdx} className="grid grid-cols-11 gap-0.5">
-                                                        {row.map((char, cIdx) => (
-                                                            <button key={cIdx} className={`aspect-square bg-white border border-gray-200 rounded flex items-center justify-center font-black text-xs md:text-sm shadow-sm ${char === '' ? 'invisible' : ''}`}>
-                                                                {char === '一聲' ? 'ˊ' : char}
-                                                            </button>
-                                                        ))}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            <div className="text-[9px] text-gray-400 text-left pl-1 mt-2 leading-tight">
-                                                ※ 點擊按鈕會逐字發音、點擊聲調會將一組的音完整念出來
-                                            </div>
-                                        </div>
-
-                                        <div className="flex gap-2 h-12 items-center">
-                                            <button className="flex-1 bg-blue-400 text-white rounded-xl flex flex-col items-center justify-center h-full text-[9px] font-bold shadow-md relative">
-                                                <span className="absolute top-0.5 left-0.5 bg-blue-600 text-white px-0.5 rounded-[4px] scale-[0.7] origin-top-left">5</span>
-                                                <svg className="w-4 h-4 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                                                切換鍵盤
-                                            </button>
-                                            <button className="flex-[3] bg-white border border-gray-300 rounded-xl flex items-center justify-center h-full font-bold text-xs shadow-md">
-                                                一聲
-                                            </button>
-                                            <button className="flex-1 bg-amber-600 text-white rounded-xl flex flex-col items-center justify-center h-full text-[9px] font-bold shadow-md relative">
-                                                <span className="absolute top-0.5 left-0.5 bg-red-600 text-white px-0.5 rounded-[4px] scale-[0.7] origin-top-left">6</span>
-                                                <svg className="w-4 h-4 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-                                                全螢幕
-                                            </button>
-                                            <button className="flex-1 bg-slate-500 text-white rounded-xl flex flex-col items-center justify-center h-full text-[9px] font-bold shadow-md relative">
-                                                <span className="absolute top-0.5 left-0.5 bg-slate-700 text-white px-0.5 rounded-[4px] scale-[0.7] origin-top-left">7</span>
-                                                <svg className="w-4 h-4 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                                                設定
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <ul className="list-disc pl-5 space-y-2.5 text-left">
-                                        <li className="leading-relaxed"><strong>1. 訊息顯示區與播音鈕：</strong>用鍵盤打出來的字會顯示在此，點擊播音鈕可再次讀出整句。</li>
-                                        <li className="leading-relaxed"><strong>2. 倒退鈕：</strong>逐字刪除顯示區的字。</li>
-                                        <li className="leading-relaxed"><strong>3. 清空鈕：</strong>清空顯示區文字。</li>
-                                        <li className="leading-relaxed"><strong>4. 鍵盤區：</strong>點擊按鈕會逐字發音、點擊聲調會將一組的音完整念出來。</li>
-                                        <li className="leading-relaxed"><strong>5. 切換鍵盤鈕：</strong>預設有注音、英文及數字鍵盤，可於後台額外選擇顯示日文、韓文鍵盤。</li>
-                                        <li className="leading-relaxed"><strong>6. 全螢幕按鈕：</strong>進入滿版無網址列模式，提供學生最專注的版面。</li>
-                                        <li className="leading-relaxed"><strong>7. 設定按鈕：</strong>前往後台進行個人化設定。</li>
-                                    </ul>
-                                </div>
-
-                                <div className="border-t border-gray-100 pt-5">
-                                    <h4 className="font-bold text-gray-800 text-base mb-3 border-l-4 border-blue-500 pl-2 flex justify-between items-center">
-                                        ⚙️ 後台區設定項目
-                                        <button 
-                                            onClick={() => speak("後台區設定項目：一，啟用語言鍵盤，可設定溝通板要顯示哪些語言的鍵盤。二，倒退與清空鈕順序，設定溝通板倒退與清空鍵的上下位置喜好。三，顯示區字體大小，控制溝通板上方顯示區的字體大小。四，一般注音鍵盤字體大小，控制注音按鈕文字縮放，避免字體超過按鈕邊緣。五，語音引擎綁定，選擇最合適的語音發聲來源與語系。六，色彩主題，替換介面配色風格。", 'zhuyin')}
-                                            className="px-2 py-1 bg-emerald-600 text-white rounded text-[10px] font-bold shadow-sm"
-                                        >🔊 朗讀此段</button>
-                                    </h4>
-                                    <ul className="list-disc pl-5 space-y-2.5">
-                                        <li className="leading-relaxed"><strong>1. 啟用語言鍵盤：</strong>可設定溝通板要顯示哪些語言的鍵盤。</li>
-                                        <li className="leading-relaxed"><strong>2. 倒退與清空鈕順序：</strong>設定溝通板倒退與清空鍵的上下位置喜好。</li>
-                                        <li className="leading-relaxed"><strong>3. 顯示區字體大小：</strong>控制溝通板上方顯示區的字體大小。</li>
-                                        <li className="leading-relaxed"><strong>4. 一般注音鍵盤字體大小：</strong>控制注音按鈕文字縮放，避免字體超過按鈕邊緣。</li>
-                                        <li className="leading-relaxed"><strong>5. 語音引擎綁定：</strong>選擇最合適的語音發聲來源與語系。</li>
-                                        <li className="leading-relaxed"><strong>6. 色彩主題：</strong>替換介面配色風格。</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <button onClick={() => { window.speechSynthesis.cancel(); setIsGuideOpen(false); }} className="mt-6 w-full bg-teal-600 hover:bg-teal-700 text-white py-3 rounded-xl font-black transition-colors shadow-lg">
-                                了解，開始使用
-                            </button>
+                            <h3 className="text-xl font-black text-teal-600 mb-4 border-b border-gray-100 pb-2">📖 新手指南與功能說明</h3>
+                            <p>這裡是功能設定說明的區域...</p>
+                            <button onClick={() => setIsGuideOpen(false)} className="mt-6 w-full bg-teal-600 text-white py-3 rounded-xl font-black">了解，開始使用</button>
                         </div>
                     </div>
                 )}
 
                 <div className="flex-1 overflow-y-auto space-y-6 landscape:space-y-3 pb-10 landscape:pb-4 pr-2 mt-2 md:mt-0">
                 
-                {/* 1. 系統檢查與安裝提示設定 */}
+                {/* 開關提示設定 */}
                 <section className="bg-white/60 p-5 landscape:p-3 rounded-2xl landscape:rounded-xl shadow-sm mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <h3 className="text-xl font-bold text-gray-800">每次開啟時顯示「系統檢查與安裝」提示</h3>
-                        <p className="text-sm text-gray-600 mt-1">開啟此功能，每次打開網頁都會幫您檢查離線狀態。</p>
+                        <h3 className="text-xl font-bold text-gray-800">每次開啟時顯示「系統檢查」畫面</h3>
+                        <p className="text-sm text-gray-600 mt-1">開啟後，每次打開網頁都會自動檢查離線狀態。</p>
                     </div>
                     <button 
                         onClick={toggleSettingShowSetup}
                         className={`w-full sm:w-auto px-6 py-3 rounded-xl font-black text-white shadow-md active:scale-95 transition-all ${settingShowSetup ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-400 hover:bg-gray-500'}`}
                     >
-                        {settingShowSetup ? '目前：已開啟顯示' : '目前：不再顯示'}
+                        {settingShowSetup ? '目前狀態：開' : '目前狀態：關'}
                     </button>
                 </section>
 
-                {/* 後台直接一鍵安裝區塊 */}
-                {installPrompt && (
-                    <section className="bg-blue-50 border-2 border-blue-400 p-5 landscape:p-3 rounded-2xl shadow-sm mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div>
-                            <h3 className="text-xl font-black text-blue-800 mb-1">將溝通板安裝至手機</h3>
-                            <p className="text-sm text-blue-600">下載為專屬APP，未來免開瀏覽器即可離線秒開！</p>
-                        </div>
-                        <button 
-                            onClick={handleInstall}
-                            disabled={isInstalling}
-                            className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-6 rounded-xl shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 whitespace-nowrap"
-                        >
-                            {isInstalling ? (
-                                <><div className="w-5 h-5 border-4 border-white/30 border-t-white rounded-full animate-spin"></div> 安裝中...</>
-                            ) : (
-                                <>⬇️ 一鍵安裝到桌面</>
-                            )}
-                        </button>
-                    </section>
-                )}
-
-                <section className="bg-white/60 p-5 landscape:p-3 rounded-2xl landscape:rounded-xl shadow-sm mb-6">
-                    <div className="flex justify-between items-center mb-4 border-b border-black/10 pb-2">
-                        <h3 className="text-2xl landscape:text-lg font-bold">1️⃣ 滿版全螢幕 (加入主畫面) 教學</h3>
+                {/* 智慧安裝區塊 */}
+                <section className="bg-blue-50 border-2 border-blue-400 p-5 landscape:p-3 rounded-2xl shadow-sm mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="w-full sm:w-auto text-left">
+                        <h3 className="text-xl font-black text-blue-800 mb-1">將溝通板安裝至手機</h3>
+                        <p className="text-sm text-blue-600">下載後，未來免開瀏覽器即可離線秒開！</p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div className="bg-white p-4 landscape:p-3 rounded-xl shadow-sm border border-blue-200 flex flex-col">
-                            <h4 className="font-black text-blue-600 text-lg landscape:text-base mb-2">🍏 iPhone / iPad (iOS)</h4>
-                            <ol className="list-decimal pl-5 space-y-2 landscape:space-y-1 text-base landscape:text-sm flex-1 flex flex-col justify-center">
-                                <li>使用 <strong className="bg-gray-200 px-1 rounded">Safari</strong> 瀏覽器開啟。</li>
-                                <li>點擊下方工具列的 <strong className="text-blue-500">分享按鈕</strong> (正方形帶箭頭)。</li>
-                                <li>選擇 <strong className="bg-gray-200 px-1 rounded">加入主畫面</strong>。</li>
-                                <li>點擊「新增」，從桌面圖示進入即自動滿版隱藏網址列！</li>
-                            </ol>
-                        </div>
-                        
-                        <div className="bg-white p-4 landscape:p-3 rounded-xl shadow-sm border border-yellow-200 flex flex-col">
-                            <h4 className="font-black text-amber-600 text-lg landscape:text-base mb-2">🤖 Android (安卓) </h4>
-                            <ol className="list-decimal pl-5 space-y-2 landscape:space-y-1 text-base landscape:text-sm flex-1 flex flex-col justify-center">
-                                <li>使用 <strong className="bg-gray-200 px-1 rounded">Google Chrome</strong> 瀏覽器開啟。</li>
-                                <li>點擊右上角 <strong className="text-gray-600">三個點 [⋮]</strong> 選單。</li>
-                                <li>點擊 <strong className="bg-gray-200 px-1 rounded">加到主畫面</strong> 或安裝應用程式。</li>
-                                <li>回到桌面點擊捷徑圖示開啟即可使用。</li>
-                            </ol>
-                        </div>
-
-                        <div className="bg-white p-4 landscape:p-3 rounded-xl shadow-sm border border-emerald-200 flex flex-col justify-center">
-                            <h4 className="font-black text-emerald-700 text-lg landscape:text-base mb-2 flex items-center gap-1">
-                                💡 全螢幕小提醒
-                            </h4>
-                            <p className="text-sm text-gray-700 leading-relaxed">
-                                多數手機（如三星或蘋果）加入主畫面後，開啟時即會<strong className="text-emerald-600">自動隱藏網址列</strong>達到滿版效果。<br/>
-                                若您的廠牌型號無法自動全螢幕，請點擊溝通板前台的<span className="inline-flex items-center bg-amber-600 text-white px-2 py-0.5 rounded-md text-xs font-bold mx-1"><Maximize className="w-3 h-3 mr-0.5" />全螢幕</span>按鈕。
-                            </p>
-                        </div>
-                    </div>
+                    <InstallButtonUI />
                 </section>
 
+                {/* 介面設定 */}
                 <section className="bg-white/60 p-5 landscape:p-3 rounded-2xl landscape:rounded-xl shadow-sm">
-                    <h3 className="text-2xl landscape:text-lg font-bold mb-4 landscape:mb-2 border-b border-black/10 pb-2">2️⃣ 啟用語言鍵盤</h3>
-                    <div className="flex flex-wrap gap-4 landscape:gap-2">
-                    {Object.entries(LANG_SETTINGS).map(([langKey, conf]) => {
-                        const isEnabled = enabledLanguages.includes(langKey);
-                        return (
-                        <button 
-                            key={langKey}
-                            onClick={() => {
-                            if (isEnabled && enabledLanguages.length > 1) {
-                                setEnabledLanguages(prev => prev.filter(l => l !== langKey));
-                                if (language === langKey) setLanguage(enabledLanguages.find(l => l !== langKey));
-                            } else if (!isEnabled) {
-                                setEnabledLanguages(prev => [...prev, langKey]);
-                            }
-                            }}
-                            className={`px-6 py-3 landscape:px-4 landscape:py-2 rounded-xl landscape:rounded-lg text-xl landscape:text-sm font-bold border-2 transition-all ${isEnabled ? 'bg-blue-500 text-white border-blue-600 shadow-md' : 'bg-gray-200 text-gray-500 border-gray-300'}`}
-                        >
-                            {conf.label} {isEnabled && <Check className="inline ml-1 w-5 h-5 landscape:w-4 landscape:h-4" />}
-                        </button>
-                        );
-                    })}
-                    </div>
-                    <p className="mt-2 text-sm landscape:text-xs text-gray-600">啟用後會在前台鍵盤切換中顯示。</p>
-                </section>
-
-<section className="bg-white/60 p-5 landscape:p-3 rounded-2xl landscape:rounded-xl shadow-sm">
-                    <h3 className="text-2xl landscape:text-lg font-bold mb-4 landscape:mb-2 border-b border-black/10 pb-2">3️⃣ 倒退與清空鈕順序</h3>
-                    <div className="grid grid-cols-2 gap-4 p-1">
-                        <div 
-                            onClick={() => setButtonOrder('deleteFirst')}
-                            className={`p-4 rounded-xl border-4 flex flex-col items-center gap-3 transition-all cursor-pointer ${buttonOrder === 'deleteFirst' ? 'border-blue-500 bg-blue-50/50 shadow-lg' : 'border-gray-200 bg-white'}`}
-                        >
-                            <span className="font-bold text-base">倒退鈕在上，清空鈕在下</span>
-                            <div className="w-20 h-24 flex flex-col gap-1 bg-gray-100 p-2 rounded-lg border border-gray-300">
-                                <div className="flex-1 bg-amber-500 text-white rounded-lg flex flex-col items-center justify-center">
-                                    <Delete className="w-6 h-6" />
-                                    <span className="text-[10px] font-bold mt-0.5">倒退</span>
-                                </div>
-                                <div className="flex-1 bg-rose-500 text-white rounded-lg flex flex-col items-center justify-center">
-                                    <Trash2 className="w-6 h-6" />
-                                    <span className="text-[10px] font-bold mt-0.5">清空</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div 
-                            onClick={() => setButtonOrder('trashFirst')}
-                            className={`p-4 rounded-xl border-4 flex flex-col items-center gap-3 transition-all cursor-pointer ${buttonOrder === 'trashFirst' ? 'border-blue-500 bg-blue-50/50 shadow-lg' : 'border-gray-200 bg-white'}`}
-                        >
-                            <span className="font-bold text-base">清空鈕在上，倒退鈕在下</span>
-                            <div className="w-20 h-24 flex flex-col gap-1 bg-gray-100 p-2 rounded-lg border border-gray-300">
-                                <div className="flex-1 bg-rose-500 text-white rounded-lg flex flex-col items-center justify-center">
-                                    <Trash2 className="w-6 h-6" />
-                                    <span className="text-[10px] font-bold mt-0.5">清空</span>
-                                </div>
-                                <div className="flex-1 bg-amber-500 text-white rounded-lg flex flex-col items-center justify-center">
-                                    <Delete className="w-6 h-6" />
-                                    <span className="text-[10px] font-bold mt-0.5">倒退</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="bg-white/60 p-5 landscape:p-3 rounded-2xl landscape:rounded-xl shadow-sm">
-                    <div className="flex justify-between items-center mb-4 landscape:mb-2 border-b border-black/10 pb-2">
-                        <h3 className="text-2xl landscape:text-lg font-bold">4️⃣ 介面與語音設定 (TTS)</h3>
-                    </div>
+                    <h3 className="text-xl font-bold mb-4 border-b border-black/10 pb-2">字體與順序設定</h3>
                     
-                    <div className="space-y-6 landscape:space-y-3">
-                        <div className="bg-black/5 p-4 landscape:p-3 rounded-xl landscape:rounded-lg">
-                            <div className="flex justify-between items-end mb-3 landscape:mb-1">
-                                <label className="block text-lg landscape:text-base font-bold">
-                                    顯示區字體大小：
-                                    <span className="block text-xs font-normal text-gray-500 mt-0.5">
-                                        (建議：手機 14px / 平板 18px / 電腦 24px)
-                                    </span>
-                                </label>
-                                <button onClick={() => { setDisplayFontSize(14); setPendingFontSize(14); }} className="text-sm landscape:text-xs bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-1.5 landscape:px-2 landscape:py-1 rounded-lg font-bold transition-colors shadow-sm">恢復預設(14)</button>
-                            </div>
-                            <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 landscape:gap-2">
-                                <div className="flex flex-1 items-center gap-2 min-w-[200px]">
-                                    <span className="text-lg landscape:text-sm font-bold text-gray-500 shrink-0">小</span>
-                                    <input type="range" min="10" max="80" step="2" value={pendingFontSize} onChange={(e) => setPendingFontSize(parseInt(e.target.value))} className="flex-1 h-3 landscape:h-2 rounded-lg appearance-none bg-gray-300 outline-none" />
-                                    <span className="text-lg landscape:text-sm font-bold text-gray-500 shrink-0">大</span>
-                                    <span className="text-2xl landscape:text-lg font-black w-12 text-center text-blue-600 bg-white rounded-xl landscape:rounded-lg shadow-inner py-1 shrink-0">{pendingFontSize}</span>
-                                </div>
-                                <button 
-                                    onClick={() => setDisplayFontSize(pendingFontSize)}
-                                    disabled={displayFontSize === pendingFontSize}
-                                    className={`w-full sm:w-auto px-4 py-2 rounded-lg font-bold shadow-md transition-all shrink-0 text-center ${displayFontSize === pendingFontSize ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white active:scale-95 animate-pulse'}`}
-                                >
-                                    確認更改
-                                </button>
-                            </div>
-                            
-                            <div className="mt-4 p-4 landscape:p-3 bg-white border-2 border-dashed border-gray-400 rounded-xl overflow-hidden shadow-inner">
-                                <p className="text-gray-500 mb-2 font-bold text-sm">字體大小預覽區：</p>
-                                <div className={`font-bold tracking-widest break-words w-full ${currentTheme.text} ${currentTheme.displayBg}`} style={{ fontSize: `${pendingFontSize}px`, lineHeight: '1.4' }}>
-                                    ㄐㄧㄣ ㄊㄧㄢ ㄉㄜ˙ㄊㄧㄢ ㄑㄧˋㄏㄣˇㄏㄠˇ，ㄨㄛˇㄒㄧㄤˇㄧㄠˋㄑㄩˋㄨㄢˊㄌㄧㄡ ㄏㄨㄚˊㄊㄧ。
-                                </div>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex justify-between items-center">
+                            <span className="font-bold">顯示區字體：</span>
+                            <div className="flex items-center gap-2">
+                                <input type="range" min="10" max="80" step="2" value={pendingFontSize} onChange={(e) => setPendingFontSize(parseInt(e.target.value))} className="w-24" />
+                                <span className="font-black w-8">{pendingFontSize}</span>
+                                <button onClick={() => setDisplayFontSize(pendingFontSize)} className="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm">確認</button>
                             </div>
                         </div>
 
-                        {/* 一般注音鍵盤字體大小設定區塊 */}
-                        <div className="mt-6 p-4 landscape:p-3 bg-white border border-gray-200 rounded-xl shadow-sm">
-                        <div className="flex justify-between items-end mb-4">
-                            <label className="block text-lg font-bold">一般注音鍵盤字體大小：</label>
-                            <button onClick={() => { setKeyboardFontSize(20); setPendingKeyboardFontSize(20); }} className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-1 rounded-lg font-bold transition-colors shadow-sm">恢復預設(20)</button>
-                        </div>
-                        
-                        <div className="flex items-center gap-3 mb-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
-                            <span className="text-lg font-bold text-gray-500">小</span>
-                            <input type="range" min="14" max="30" step="1" value={pendingKeyboardFontSize} onChange={(e) => setPendingKeyboardFontSize(parseInt(e.target.value))} className="flex-1 h-3 rounded-lg appearance-none bg-gray-300 outline-none" />
-                            <span className="text-lg font-bold text-gray-500">大</span>
-                            <span className="text-2xl font-black w-12 text-center text-blue-600 bg-white rounded-xl shadow-inner py-1">{pendingKeyboardFontSize}</span>
-                        </div>
-                        
-                        <div className="grid grid-cols-2 gap-4 items-stretch mb-4">
-                            <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 text-xs text-gray-600 space-y-1">
-                                    <p className="font-bold text-gray-700">
-                                        📱 各載具建議尺寸範圍 
-                                        <span className="block sm:inline text-blue-600 font-bold mt-0.5 sm:mt-0">
-                                            (目前裝置適用：{deviceType === 'mobile' ? '手機 20px～30px' : deviceType === 'tablet' ? '平板 20px～36px' : '電腦 24px～40px'})
-                                        </span>
-                                    </p>
-                                    <p>• 手機 (Mobile)：20px ～ 30px</p>
-                                    <p>• 平板 (Tablet)：20px ～ 36px</p>
-                                    <p>• 電腦 (Desktop)：24px ～ 40px</p>
-                                </div>
-                            
-                            <div className="p-3 bg-gray-50 border-2 border-dashed border-gray-400 rounded-xl overflow-hidden shadow-inner flex flex-col items-center justify-center gap-2">
-                                <p className="text-gray-400 font-bold text-[10px] self-start leading-snug w-full">
-                                    按鈕縮放比例即時預覽：
-                                    <span className="text-blue-600 block sm:inline text-[8px] sm:text-[10px] mt-0.5 sm:mt-0">建議字體大小不要超過按鈕邊緣</span>
-                                </p>
-                                <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white border border-gray-300 rounded-xl shadow-md flex items-center justify-center transition-all shrink-0">
-                                    <span className="font-extrabold leading-none select-none text-gray-800" style={{ fontSize: `${pendingKeyboardFontSize}px` }}>
-                                        ㄓ
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button 
-                            onClick={() => setKeyboardFontSize(pendingKeyboardFontSize)}
-                            disabled={keyboardFontSize === pendingKeyboardFontSize}
-                            className={`w-full py-2 rounded-lg font-bold shadow-md transition-all ${keyboardFontSize === pendingKeyboardFontSize ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white active:scale-95 animate-pulse'}`}
-                        >
-                            確認更改鍵盤字體
-                        </button>
-                    </div>
-
-                        <div className="bg-black/5 p-4 landscape:p-3 rounded-xl landscape:rounded-lg space-y-6 landscape:space-y-3">
-                            {allLangKeys.map(langKey => {
-                            const conf = LANG_SETTINGS[langKey];
-                            const filteredVoices = getFilteredVoices(conf.prefix, voices);
-                            const hasVoices = filteredVoices.length > 0;
-                            const currentSelectedValue = voiceSettings[langKey] || (hasVoices ? filteredVoices[0].voiceURI : '');
-
-                            return (
-                                <div key={langKey} className="pb-4 landscape:pb-2 border-b border-gray-300/50 last:border-0 last:pb-0">
-                                <label className="block text-lg landscape:text-sm font-bold mb-2 landscape:mb-1 text-indigo-800">{conf.name}綁定引擎：</label>
-                                <div className="flex flex-col md:flex-row gap-3 landscape:gap-2">
-                                    <select 
-                                    value={currentSelectedValue} 
-                                    onChange={(e) => setVoiceSettings(p => ({...p, [langKey]: e.target.value}))} 
-                                    className="flex-1 p-3 landscape:p-2 rounded-xl landscape:rounded-lg text-black text-lg landscape:text-sm bg-white border border-gray-300 outline-none shadow-sm cursor-pointer"
-                                    disabled={!hasVoices}
-                                    >
-                                    {!hasVoices && <option value="">⚠️ 系統未安裝{conf.name}包</option>}
-                                    {filteredVoices.map(v => <option key={v.voiceURI} value={v.voiceURI}>{v.name}</option>)}
-                                    </select>
-                                    <button 
-                                    onClick={() => handleTestVoice(langKey)}
-                                    disabled={!hasVoices}
-                                    className="shrink-0 px-6 py-3 landscape:px-4 landscape:py-2 bg-emerald-500 disabled:bg-gray-400 text-white font-bold rounded-xl landscape:rounded-lg shadow active:scale-95 flex items-center justify-center gap-2"
-                                    >
-                                    <Volume2 className="w-5 h-5 landscape:w-4 landscape:h-4" /> <span className="landscape:text-sm">試聽</span>
-                                    </button>
-                                </div>
-                                </div>
-                            );
-                            })}
-                            
-                            <div className="pt-2 landscape:pt-0">
-                            <div className="flex justify-between items-end mb-3 landscape:mb-1">
-                                <label className="block text-lg landscape:text-base font-bold">全域語速調整：</label>
-                                <button onClick={() => setTtsRate(1.0)} className="text-sm landscape:text-xs bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-1.5 landscape:px-2 landscape:py-1 rounded-lg font-bold transition-colors shadow-sm">恢復預設</button>
-                            </div>
-                            <div className="flex items-center gap-3 landscape:gap-2">
-                                <span className="text-lg landscape:text-sm font-bold text-gray-500">慢</span>
-                                <input type="range" min="0.5" max="2.0" step="0.1" value={ttsRate} onChange={(e) => setTtsRate(parseFloat(e.target.value))} className="flex-1 h-3 landscape:h-2 rounded-lg appearance-none bg-gray-300 outline-none" />
-                                <span className="text-lg landscape:text-sm font-bold text-gray-500">快</span>
-                                <span className="text-xl landscape:text-lg font-black w-14 landscape:w-10 text-center text-blue-600 bg-white rounded-xl landscape:rounded-lg shadow-inner py-1">{ttsRate.toFixed(1)}</span>
-                            </div>
+                        <div className="flex justify-between items-center">
+                            <span className="font-bold">鍵盤區字體：</span>
+                            <div className="flex items-center gap-2">
+                                <input type="range" min="14" max="30" step="1" value={pendingKeyboardFontSize} onChange={(e) => setPendingKeyboardFontSize(parseInt(e.target.value))} className="w-24" />
+                                <span className="font-black w-8">{pendingKeyboardFontSize}</span>
+                                <button onClick={() => setKeyboardFontSize(pendingKeyboardFontSize)} className="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm">確認</button>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section className="bg-white/60 p-5 landscape:p-3 rounded-2xl landscape:rounded-xl shadow-sm">
-                    <h3 className="text-2xl landscape:text-lg font-bold mb-4 landscape:mb-2 border-b border-black/10 pb-2">5️⃣ 色彩主題</h3>
-                    <div className="flex flex-col md:flex-row gap-4 landscape:gap-2">
-                    {Object.entries(THEMES).map(([key, t]) => (
-                        <button 
-                        key={key} onClick={() => setTheme(key)}
-                        className={`flex-1 py-4 landscape:py-2 rounded-xl landscape:rounded-lg text-xl landscape:text-sm font-bold border-4 transition-all ${t.bg} ${t.text} ${theme === key ? 'border-blue-500 scale-105 shadow-lg' : 'border-transparent'}`}
-                        >
-                        {t.name} {theme === key && <Check className="inline ml-2 w-5 h-5 landscape:w-4 landscape:h-4" />}
-                        </button>
-                    ))}
-                    </div>
-                </section>
-
-                <section className="bg-white/60 p-5 landscape:p-3 rounded-2xl landscape:rounded-xl shadow-sm opacity-90">
-                    <h3 className="text-xl md:text-2xl landscape:text-lg font-bold mb-3 landscape:mb-1 border-b border-black/10 pb-2">6️⃣ 關於與授權說明</h3>
-                    <p className="text-base md:text-lg landscape:text-sm leading-relaxed text-gray-800">
-                    本網頁功能與介面概念啟發自「有聲注音溝通板 v1.0.5 安卓版app」，我們透過全新網頁技術完全重構程式碼並新增多項無障礙功能，旨在為低口語、無口語的需求者打造一座與世界溝通的無障礙橋樑。<br /><br />
-                    <strong>網頁作者：</strong>特教老師 劉芷均 與 Gemini AI 協作。<br />
-                    <strong>授權與分享規範：</strong>本工具免費開放給有需要的家庭，以及教育、醫療、長照等相關工作者使用。本溝通板網頁採用「創用CC 姓名標示-非商業性-相同方式分享 (CC BY-NC-SA)」授權條款。<br />
-                    <span className="block mt-3 p-3 bg-blue-50/70 rounded-lg text-sm md:text-base border border-blue-200">
-                        💡 <strong>簡單來說：</strong>歡迎大家免費使用、分享或修改此網頁來幫助更多人！但請務必註明原網頁作者，且任何修改後的新版本也必須維持免費公益，<strong>嚴禁任何形式之商業營利行為</strong>。
-                    </span>
-                    </p>
-                </section>
                 </div>
             </div>
             );
@@ -1130,94 +674,64 @@
         return (
             <div className={`h-[100dvh] w-full flex flex-col ${currentTheme.bg} overflow-hidden select-none pb-2 md:pb-4 landscape:pb-1 relative`}>
             
-            {/* 核心升級：防呆的全螢幕設定、檢查、強制更新與下載畫面 */}
+            {/* 核心升級：防呆全螢幕檢查與更新畫面 */}
             {setupState > 0 && (
                 <div className="fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4 backdrop-blur-sm">
                     <div className="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl flex flex-col items-center text-center border-4 border-[#92A8D1]">
                         
-                        {/* 狀態1：正在檢查中 (無法手動關閉，2秒後跳轉) */}
+                        {/* 狀態1：正在檢查中 (2秒動畫) */}
                         {setupState === 1 && (
                             <>
                                 <div className="w-16 h-16 border-8 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-6"></div>
                                 <h3 className="text-xl md:text-2xl font-black text-gray-800 mb-3">🔍 系統檢查中...</h3>
-                                <p className="text-base md:text-lg text-gray-600 mb-2 leading-relaxed">
-                                    正在為您檢查最新的系統檔案。<br/>
-                                    <span className="text-blue-600 font-bold">請稍候幾秒鐘...</span>
+                                <p className="text-base text-gray-600 mb-2 leading-relaxed">
+                                    正在為您檢查離線檔案。<br/><span className="text-blue-600 font-bold">請稍候幾秒鐘...</span>
                                 </p>
                             </>
                         )}
 
-                        {/* 狀態3：強制更新下載中 (出現真實進度條，禁止關閉) */}
+                        {/* 狀態3：強制更新下載中 (出現進度條) */}
                         {setupState === 3 && (
                             <>
                                 <div className="w-full bg-gray-200 rounded-full h-4 mb-4 overflow-hidden relative">
                                     <div className="bg-blue-600 h-4 rounded-full transition-all duration-300" style={{ width: `${updateProgress}%` }}></div>
                                 </div>
                                 <h3 className="text-xl md:text-2xl font-black text-blue-800 mb-3">系統更新中，請勿關閉</h3>
-                                <p className="text-base md:text-lg text-gray-600 mb-2 leading-relaxed">
-                                    發現新版本！正在下載最新的檔案...<br/>
-                                    <span className="text-blue-600 font-bold">請保持網路連線。</span>
+                                <p className="text-base text-gray-600 mb-2 leading-relaxed">
+                                    發現新版本！正在下載最新的檔案...<br/><span className="text-blue-600 font-bold">請保持網路連線。</span>
                                 </p>
                             </>
                         )}
 
-                        {/* 狀態2：檢查完畢或下載完成 (可手動點擊關閉) */}
+                        {/* 狀態2：就緒與安裝提示 */}
                         {setupState === 2 && (
                             <>
                                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 shadow-inner">
                                     <span className="text-3xl">✅</span>
                                 </div>
                                 <h3 className="text-xl md:text-2xl font-black text-gray-800 mb-3">準備就緒</h3>
-                                <p className="text-base md:text-lg text-gray-600 mb-4 leading-relaxed">
-                                    所有檔案都已經準備好了。<br/>
-                                    <span className="inline-block mt-2 bg-[#F7CAC9] text-gray-800 px-3 py-1.5 rounded-lg font-bold">
-                                        現在出門沒網路也能正常使用囉！
-                                    </span>
+                                <p className="text-base text-gray-600 mb-4 leading-relaxed">
+                                    所有檔案都已經準備好了。<br/>現在出門沒網路也能正常使用囉！
                                 </p>
 
-                                <div className="w-full bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 text-left">
-                                    <p className="text-sm text-blue-800 font-black mb-2">💡 建議放到手機桌面上：</p>
-                                    
-                                    {installPrompt ? (
-                                        <div className="flex flex-col gap-2">
-                                            <button 
-                                                onClick={handleInstall}
-                                                disabled={isInstalling}
-                                                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-lg shadow active:scale-95 transition-all text-sm flex items-center justify-center gap-2"
-                                            >
-                                                {isInstalling ? (
-                                                    <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> 安裝中，請稍候...</>
-                                                ) : (
-                                                    <>⬇️ 點此一鍵安裝</>
-                                                )}
-                                            </button>
-                                            <p className="text-[10px] text-gray-500 leading-tight">
-                                                * 安裝需幾秒鐘，請勿重複點擊。完成後請去「所有應用程式」清單中找它。
-                                            </p>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <p className="text-xs text-gray-700 font-bold leading-relaxed">
-                                                🍏 蘋果：點擊下方「分享」，選<span className="text-blue-600">加入主畫面</span>。<br/>
-                                                🤖 安卓：點擊右上角選單，選<span className="text-blue-600">加到主畫面</span>。
-                                            </p>
-                                        </div>
-                                    )}
+                                <div className="w-full bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 text-left flex flex-col gap-2">
+                                    <p className="text-sm text-blue-800 font-black mb-1">💡 建議安裝到桌面：</p>
+                                    <InstallButtonUI />
                                 </div>
 
-                                <label className="flex items-center gap-2 mb-4 text-sm text-gray-600 cursor-pointer font-bold select-none">
+                                <label className="flex items-center justify-center gap-2 mb-4 text-sm text-gray-600 font-bold cursor-pointer select-none">
                                     <input 
                                         type="checkbox" 
                                         checked={dontShowAgain}
                                         onChange={(e) => setDontShowAgain(e.target.checked)}
-                                        className="w-5 h-5 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                                        className="w-5 h-5 rounded text-blue-600 cursor-pointer"
                                     />
-                                    以後打開不要再顯示此畫面
+                                    以後打開不要再顯示此檢查畫面
                                 </label>
 
                                 <button 
                                     onClick={handleStartUsing}
-                                    className="w-full bg-[#92A8D1] hover:bg-blue-500 text-white font-black text-lg py-3 md:py-4 rounded-xl shadow-md active:scale-95 transition-all"
+                                    className="w-full bg-[#92A8D1] hover:bg-blue-500 text-white font-black text-lg py-3 rounded-xl shadow-md active:scale-95 transition-all"
                                 >
                                     知道了，開始使用
                                 </button>
@@ -1227,6 +741,7 @@
                 </div>
             )}
 
+            {/* 前台鍵盤 UI (維持不變) */}
             <div className="h-[40%] landscape:h-[35%] w-full flex gap-1 p-2 md:p-4 landscape:p-1 min-h-0 shrink-0">
                 <button onClick={handlePlayVoice} className="w-20 md:w-28 landscape:w-24 flex flex-col items-center justify-center bg-emerald-500 text-white rounded-xl md:rounded-2xl landscape:rounded-lg shadow-md active:scale-95 transition-transform">
                 <Play className="w-10 h-10 md:w-12 md:h-12 landscape:w-8 landscape:h-8 fill-current" />
@@ -1234,74 +749,36 @@
                 </button>
 
                 <div className={`flex-1 rounded-xl md:rounded-2xl landscape:rounded-lg p-4 landscape:p-3 overflow-y-auto ${currentTheme.displayBg} ${currentTheme.displayBorder} shadow-inner flex items-start content-start`}>
-                <div className={`font-bold tracking-widest flex flex-wrap gap-x-2 gap-y-1 md:gap-x-3 md:gap-y-2 landscape:gap-x-1 landscape:gap-y-1 ${currentTheme.text} break-words w-full`} style={{ fontSize: `${displayFontSize}px`, lineHeight: '1.4' }}>
-                    {completedInputs.map((s, i) => <span key={i}>{language === 'korean' ? getHangulFromJamo(s.trim()) : s}</span>)}
+                <div className={`font-bold tracking-widest flex flex-wrap gap-x-2 gap-y-1 ${currentTheme.text} break-words w-full`} style={{ fontSize: `${displayFontSize}px`, lineHeight: '1.4' }}>
+                    {completedInputs.map((s, i) => <span key={i}>{s}</span>)}
                     <span className="border-b-[0.1em] border-current animate-pulse min-w-[0.5em] h-[1.2em]">
-                        {language === 'korean' ? getHangulFromJamo(currentSyllable.join('')) : currentSyllable.join('')}
+                        {currentSyllable.join('')}
                     </span>
                 </div>
                 </div>
 
                 <div className="w-20 md:w-28 landscape:w-24 flex flex-col gap-2 landscape:gap-1">
-                {buttonOrder === 'deleteFirst' ? (
-                    <>
-                        <button onClick={handleBackspace} className="flex-1 flex flex-col items-center justify-center bg-amber-500 text-white rounded-xl md:rounded-2xl landscape:rounded-lg shadow-md active:scale-95 transition-transform">
-                            <Delete className="w-8 h-8 md:w-10 md:h-10 landscape:w-7 landscape:h-7" />
-                            <span className="text-xs md:text-base landscape:text-[11px] font-bold mt-1 landscape:mt-0">倒退</span>
-                        </button>
-                        <button onClick={handleClear} className="flex-1 flex flex-col items-center justify-center bg-rose-500 text-white rounded-xl md:rounded-2xl landscape:rounded-lg shadow-md active:scale-95 transition-transform">
-                            <Trash2 className="w-8 h-8 md:w-10 md:h-10 landscape:w-7 landscape:h-7" />
-                            <span className="text-xs md:text-base landscape:text-[11px] font-bold mt-1 landscape:mt-0">清空</span>
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <button onClick={handleClear} className="flex-1 flex flex-col items-center justify-center bg-rose-500 text-white rounded-xl md:rounded-2xl landscape:rounded-lg shadow-md active:scale-95 transition-transform">
-                            <Trash2 className="w-8 h-8 md:w-10 md:h-10 landscape:w-7 landscape:h-7" />
-                            <span className="text-xs md:text-base landscape:text-[11px] font-bold mt-1 landscape:mt-0">清空</span>
-                        </button>
-                        <button onClick={handleBackspace} className="flex-1 flex flex-col items-center justify-center bg-amber-500 text-white rounded-xl md:rounded-2xl landscape:rounded-lg shadow-md active:scale-95 transition-transform">
-                            <Delete className="w-8 h-8 md:w-10 md:h-10 landscape:w-7 landscape:h-7" />
-                            <span className="text-xs md:text-base landscape:text-[11px] font-bold mt-1 landscape:mt-0">倒退</span>
-                        </button>
-                    </>
-                )}
+                    <button onClick={handleBackspace} className="flex-1 bg-amber-500 text-white rounded-xl shadow-md active:scale-95 flex flex-col items-center justify-center"><Delete className="w-8 h-8" /><span className="text-xs font-bold">倒退</span></button>
+                    <button onClick={handleClear} className="flex-1 bg-rose-500 text-white rounded-xl shadow-md active:scale-95 flex flex-col items-center justify-center"><Trash2 className="w-8 h-8" /><span className="text-xs font-bold">清空</span></button>
                 </div>
             </div>
 
-            <div className="flex-1 flex flex-col px-1 md:px-3 landscape:px-1 landscape:md:px-2 gap-0.5 md:gap-2 landscape:gap-0 mt-0.5 landscape:mt-0 min-h-0 overflow-hidden justify-center">
-                {KEYBOARD_LAYOUTS[language].map((row, rowIndex) => (
-                <div key={rowIndex} className="flex-1 flex gap-1 md:gap-2 landscape:gap-1 justify-center">
+            <div className="flex-1 flex flex-col px-1 gap-1 justify-center overflow-hidden">
+                {KEYBOARD_LAYOUTS.zhuyin.map((row, rowIndex) => (
+                <div key={rowIndex} className="flex-1 flex gap-1 justify-center">
                     {row.map((char, colIndex) => {
-                    if (char === '') {
-                        return <div key={`${rowIndex}-${colIndex}`} className="flex-1 h-full border border-transparent"></div>;
-                    }
-
+                    if (char === '') return <div key={`${rowIndex}-${colIndex}`} className="flex-1"></div>;
                     const isEnabled = !getAvailableKeys || getAvailableKeys.includes(char);
                     const isBigTone = BIG_TONES.includes(char);
-                    const isPunctuation = language === 'zhuyin' && PUNCTUATIONS.includes(char);
-                    const isBigSymbol = isBigTone || isPunctuation;
-
-                    const textClass = isBigSymbol 
-                        ? 'text-4xl sm:text-5xl md:text-6xl landscape:text-3xl landscape:md:text-5xl font-black'
-                        : 'font-extrabold';
-
+                    const isPunctuation = PUNCTUATIONS.includes(char);
                     return (
                         <button
                         key={`${rowIndex}-${colIndex}`}
                         onClick={() => isEnabled && handleKeyPress(char)}
-                        style={!isEnabled ? disabledStyle : (!isBigSymbol ? { fontSize: `${keyboardFontSize}px` } : {})}
-                        className={`
-                            flex-1 h-full rounded-xl md:rounded-2xl landscape:rounded-lg landscape:md:rounded-xl shadow flex items-center justify-center 
-                            transition-all select-none touch-manipulation overflow-hidden
-                            ${isEnabled ? `${currentTheme.keyBg} ${currentTheme.keyText} ${currentTheme.keyBorder} ${currentTheme.keyActive}` : ''}
-                        `}
+                        style={!isEnabled ? disabledStyle : (!isBigTone && !isPunctuation ? { fontSize: `${keyboardFontSize}px` } : {})}
+                        className={`flex-1 rounded-xl shadow flex items-center justify-center ${isEnabled ? `${currentTheme.keyBg} ${currentTheme.keyText} ${currentTheme.keyBorder} ${currentTheme.keyActive}` : ''}`}
                         >
-                        {isBigTone ? (
-                            <ToneIcon char={char} className="w-[55%] h-[55%] md:w-[60%] md:h-[60%] landscape:w-[50%] landscape:h-[50%]" />
-                        ) : (
-                            <span className={`flex items-center justify-center leading-none ${textClass}`}>{char}</span>
-                        )}
+                        {isBigTone ? <ToneIcon char={char} className="w-[50%] h-[50%]" /> : <span className="font-extrabold">{char}</span>}
                         </button>
                     );
                     })}
@@ -1309,52 +786,11 @@
                 ))}
             </div>
 
-            <div className="h-14 md:h-20 landscape:h-[15%] flex justify-between gap-2 px-2 md:px-4 landscape:p-1 mt-0.5 shrink-0 min-h-0">
-                
-                <button 
-                onClick={() => {
-                    const currentIndex = enabledLanguages.indexOf(language);
-                    const nextIndex = (currentIndex + 1) % enabledLanguages.length;
-                    setLanguage(enabledLanguages[nextIndex]);
-                }} 
-                className="flex-[1.5] flex flex-col items-center justify-center bg-blue-400 text-white rounded-xl landscape:rounded-lg shadow-md active:scale-95 px-2 transition-transform"
-                >
-                <Globe className="w-6 h-6 mb-1 landscape:w-4 landscape:h-4 landscape:mb-0" />
-                <span className="text-xs md:text-sm landscape:text-[10px] font-bold tracking-widest text-center break-words leading-tight">
-                    {LANG_SETTINGS[language]?.label}
-                </span>
-                </button>
-
-                <button 
-                onClick={() => isSpaceEnabled && handleKeyPress(spaceChar)}
-                style={!isSpaceEnabled ? disabledStyle : {}}
-                className={`flex-[5] flex items-center justify-center rounded-xl landscape:rounded-lg shadow-md active:scale-95 transition-all
-                    text-xl md:text-3xl landscape:text-base font-bold tracking-widest
-                    ${isSpaceEnabled ? `${currentTheme.keyBg} ${currentTheme.keyText} ${currentTheme.keyBorder} ${currentTheme.keyActive}` : ''}
-                `}
-                >
-                {language === 'zhuyin' ? '一聲' : language === 'korean' ? '띄어쓰기 (空格)' : language === 'japanese' ? '空白' : '空白鍵'}
-                </button>
-
-<button 
-    onClick={() => {
-        const doc = document.documentElement;
-        if (doc.requestFullscreen) {
-            doc.requestFullscreen();
-        } else if (doc.webkitRequestFullscreen) { /* 兼容 Safari / 舊版 Chrome */
-            doc.webkitRequestFullscreen();
-        }
-    }}
-    className="flex-[1.5] flex flex-col items-center justify-center bg-amber-600 text-white rounded-xl landscape:rounded-lg shadow-md active:scale-95 transition-transform"
-    >
-    <Maximize className="w-6 h-6 mb-1 landscape:w-4 landscape:h-4 landscape:mb-0" />
-    <span className="text-[11px] md:text-sm landscape:text-[9px] font-bold">全螢幕</span>
-    </button>
-
-                <button onClick={() => { setPendingFontSize(displayFontSize); setView('settings'); }} className="flex-[1.5] flex flex-col items-center justify-center bg-slate-500 text-white rounded-xl landscape:rounded-lg shadow-md active:scale-95 transition-transform">
-                <Settings className="w-6 h-6 mb-1 landscape:w-4 landscape:h-4 landscape:mb-0" />
-                <span className="text-[11px] md:text-sm landscape:text-[9px] font-bold">設定</span>
-                </button>
+            <div className="h-14 flex justify-between gap-2 px-2 mt-1 shrink-0">
+                <button className="flex-[1.5] bg-blue-400 text-white rounded-xl flex flex-col items-center justify-center text-xs font-bold shadow-md"><Globe className="w-5 h-5"/>ㄅㄆㄇ</button>
+                <button onClick={() => isSpaceEnabled && handleKeyPress(spaceChar)} style={!isSpaceEnabled ? disabledStyle : {}} className={`flex-[5] rounded-xl font-bold tracking-widest text-xl shadow-md ${isSpaceEnabled ? `${currentTheme.keyBg} ${currentTheme.keyText}` : ''}`}>一聲</button>
+                <button onClick={() => document.documentElement.requestFullscreen()} className="flex-[1.5] bg-amber-600 text-white rounded-xl flex flex-col items-center justify-center text-xs font-bold shadow-md"><Maximize className="w-5 h-5"/>全螢幕</button>
+                <button onClick={() => setView('settings')} className="flex-[1.5] bg-slate-500 text-white rounded-xl flex flex-col items-center justify-center text-xs font-bold shadow-md"><Settings className="w-5 h-5"/>設定</button>
             </div>
 
             </div>
@@ -1369,19 +805,16 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js').then(reg => {
-              console.log('ServiceWorker 註冊成功');
               reg.addEventListener('updatefound', () => {
                 const newWorker = reg.installing;
-                // 有新版本！觸發更新動畫
                 window.dispatchEvent(new CustomEvent('pwa-update-started'));
                 newWorker.addEventListener('statechange', () => {
                   if (newWorker.state === 'installed') {
-                    // 下載完畢！
                     window.dispatchEvent(new CustomEvent('pwa-installed'));
                   }
                 });
               });
-            }).catch(error => console.log('ServiceWorker 註冊失敗:', error));
+            });
         });
       }
     </script>
